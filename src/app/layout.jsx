@@ -13,6 +13,70 @@ export const metadata = {
 export default function Layout({ children }) {
   return (
     <html lang="en" className="h-full bg-orange-400 text-base antialiased">
+      <Script id="BDB_BASE_FILE" strategy="afterInteractive">
+        {`
+      var _paq = (window._paq = window._paq || []);
+      _paq.push(["trackPageView"]);
+      _paq.push(["enableLinkTracking"]);
+      _paq.push(["enableHeartBeatTimer"]);
+      _paq.push(["trackAllContentImpressions"]);
+      (function () {
+        var u = "https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Data";
+        _paq.push(["setTrackerUrl", u]);
+        _paq.push(["setSiteId", "engines-store"]);
+        var d = document,
+          s = d.getElementsByTagName("script")[0];
+        fetch(
+          "https://raw.githubusercontent.com/sachin-sinha/cdn/master/3337115270950697322/matomo.js"
+        )
+          .then((response) => response.text())
+          .then((scriptText) => {
+            const script = document.createElement("script");
+            script.type = "text/javascript";
+            script.async = true;
+            script.text = scriptText;
+            s.parentNode.insertBefore(script, s);
+          });
+      })();
+      `}
+      </Script>
+
+      <Script id="LOCATION" strategy="afterInteractive">
+        {`  
+        async function getLocationData() {
+    try {
+      const response = await fetch(
+        "https://pro.ip-api.com/json/?fields=66846719&key=jNFaThIJUJUwHcp"
+      );
+      const jsonData = await response.json();
+      window._mtm.push({ ip: JSON.stringify(jsonData) });
+      window._mtm.push({ event: "ip" });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  getLocationData();`}
+      </Script>
+
+      <Script id="BDB_CONTAINERS" strategy="afterInteractive">
+        {`  var _mtm = (window._mtm = window._mtm || []);
+  _mtm.push({ "mtm.startTime": new Date().getTime(), event: "mtm.Start" });
+  var d = document,
+    s = d.getElementsByTagName("script")[0];
+  fetch(
+    "https://raw.githubusercontent.com/sachin-sinha/cdn/master/3337115270950697322/3fbcc18fe6f44f56934d055112a2bb88/mastercontainer.js"
+  )
+    .then((response) => response.text())
+    .then((scriptText) => {
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.async = true;
+      script.text = scriptText;
+      s.parentNode.insertBefore(script, s);
+    });`}
+      </Script>
+
       <Script id="bing" strategy="afterInteractive">
         {`(function(w,d,t,r,u)
           {

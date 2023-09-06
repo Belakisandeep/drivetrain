@@ -66,21 +66,19 @@ const CarPartCard = ({
         },
         body: JSON.stringify(payload),
       })
-      // .then((response) => response.json())
-      // .then((data) => router.push('/thankyou'))
-      // .catch((error) => console.error('Error:', error))
-      const bdb = await fetch(
-        'https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Leads_Data',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-bang-api-key': '2863199089451966548',
-          },
-          body: JSON.stringify(payload),
-        }
-      )
-      if (mail && bdb) {
+
+      // const bdb = await fetch(
+      //   'https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Leads_Data',
+      //   {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       'x-bang-api-key': '2863199089451966548',
+      //     },
+      //     body: JSON.stringify(payload),
+      //   }
+      // )
+      if (mail) {
         setLoading(false)
         router.push('/thankyou')
       }
@@ -184,12 +182,18 @@ const CarPartCard = ({
       <form
         onSubmit={handleSubmit}
         className="relative rounded-t-lg bg-white p-6 text-black shadow-md sm:w-1/2 sm:rounded-b-none sm:rounded-r-lg"
+        id="quote-form"
       >
         <h2 className="mb-2 text-xl font-semibold">
           <span className="font-light">Get Quote for :- </span>{' '}
           {`${make} ${model} ${year}`}{' '}
           <span className="font-normal">({part})</span>
         </h2>
+        <input className="hidden" id="Make" name="Make" value={make} />
+        <input className="hidden" id="Model" name="Model" value={model} />
+        <input className="hidden" id="Year" name="Year" value={year} />
+        <input className="hidden" id="Size" name="Size" value={size} />
+        <input className="hidden" id="Part" name="Part" value={part} />
         <div className="col-span-12 mb-4 mt-8 sm:col-span-12">
           <input
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
@@ -331,3 +335,4 @@ export default function Search({ params }) {
     </div>
   )
 }
+
