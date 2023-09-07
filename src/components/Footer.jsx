@@ -15,6 +15,9 @@ const Links = {
     { title: 'FAQs', href: '/faqs' },
     { title: 'Warranty', href: '/warranty' },
     { title: 'Policy', href: '/policy' },
+    { title: 'Shipping Policy', href: '/shipping-policy' },
+    { title: 'Return Policy', href: '/return-policy' },
+    { title: 'Term Service', href: '/term-service' },
   ],
 }
 const Brands = {
