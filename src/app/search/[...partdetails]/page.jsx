@@ -67,17 +67,17 @@ const CarPartCard = ({
         body: JSON.stringify(payload),
       })
 
-      // const bdb = await fetch(
-      //   'https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Leads_Data',
-      //   {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //       'x-bang-api-key': '2863199089451966548',
-      //     },
-      //     body: JSON.stringify(payload),
-      //   }
-      // )
+      const bdb = await fetch(
+        'https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Leads_Data',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-bang-api-key': '2863199089451966548',
+          },
+          body: JSON.stringify(payload),
+        }
+      )
       if (mail) {
         setLoading(false)
         router.push('/thankyou')
