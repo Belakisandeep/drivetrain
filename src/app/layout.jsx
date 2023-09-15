@@ -15,29 +15,23 @@ export default function Layout({ children }) {
     <html lang="en" className="h-full bg-orange-400 text-base antialiased">
       <Script id="BDB_BASE_FILE" strategy="afterInteractive">
         {`
-      var _paq = (window._paq = window._paq || []);
-      _paq.push(["trackPageView"]);
-      _paq.push(["enableLinkTracking"]);
-      _paq.push(["enableHeartBeatTimer"]);
-      _paq.push(["trackAllContentImpressions"]);
-      (function () {
-        var u = "https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Data";
-        _paq.push(["setTrackerUrl", u]);
-        _paq.push(["setSiteId", "engines-store"]);
-        var d = document,
-          s = d.getElementsByTagName("script")[0];
-        fetch(
-          "https://raw.githubusercontent.com/sachin-sinha/cdn/master/3337115270950697322/matomo.js"
-        )
-          .then((response) => response.text())
-          .then((scriptText) => {
-            const script = document.createElement("script");
-            script.type = "text/javascript";
-            script.async = true;
-            script.text = scriptText;
-            s.parentNode.insertBefore(script, s);
-          });
-      })();
+var _paq = (window._paq = window._paq || []);
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+_paq.push(['enableHeartBeatTimer']);
+_paq.push(['trackAllContentImpressions']);
+(function () {
+  var u = 'https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Data';
+  _paq.push(['setTrackerUrl', u]);
+  _paq.push(['setSiteId', 'used-engines-drivetrain.us']);
+  var d = document,
+    s = d.getElementsByTagName('script')[0];
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = 'https://cdn.bangdb.com/tm/KpG4GoZiM6Py/matomo.js';
+    s.parentNode.insertBefore(script, s);
+})();
       `}
       </Script>
 
@@ -60,21 +54,15 @@ export default function Layout({ children }) {
       </Script>
 
       <Script id="BDB_CONTAINERS" strategy="afterInteractive">
-        {`  var _mtm = (window._mtm = window._mtm || []);
-  _mtm.push({ "mtm.startTime": new Date().getTime(), event: "mtm.Start" });
+        {`  var _mtm = window._mtm = window._mtm || [];
+  _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
   var d = document,
-    s = d.getElementsByTagName("script")[0];
-  fetch(
-    "https://raw.githubusercontent.com/sachin-sinha/cdn/master/3337115270950697322/3fbcc18fe6f44f56934d055112a2bb88/mastercontainer.js"
-  )
-    .then((response) => response.text())
-    .then((scriptText) => {
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.async = true;
-      script.text = scriptText;
-      s.parentNode.insertBefore(script, s);
-    });`}
+  s = d.getElementsByTagName('script')[0];
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.async = true;
+  script.src = 'https://cdn.bangdb.com/tm/KpG4GoZiM6Py/3fbcc18fe6f44f56934d055112a2bb88/mastercontainer.js';
+  s.parentNode.insertBefore(script, s);`}
       </Script>
 
       <Script id="bing" strategy="afterInteractive">
@@ -103,7 +91,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-WS4Q9DGK');`}
       </Script>
-      
+
       <body className="flex min-h-full flex-col">
         <RootLayout>{children}</RootLayout>
         <noscript
