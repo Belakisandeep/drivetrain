@@ -35,7 +35,7 @@ const CarPartCard = ({
   const handleChange = (e) => {
     const { name, value } = e.target
     if (
-      (name === 'number' && parseInt(value) < 9999999999) ||
+      (name === 'number' && parseInt(value) <= 9999999999) ||
       (name === 'number' && value === '')
     ) {
       setFormData((prevData) => ({ ...prevData, [name]: value }))
