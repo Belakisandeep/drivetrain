@@ -23,6 +23,41 @@ const FormComponent = () => {
     )
   }
 
+  const sendPartOne = async (part, make, model, year, size) => {
+    const _id = decodeURIComponent(document.cookie)
+      .split(';')
+      .filter((x) => x.includes('_pk_id.used-engines-drivetrain.us'))[0]
+      .split('=')[1]
+      .split('.')[0]
+    const payloadOne = {
+      _id,
+      e_a: 'Quote1',
+      e_c: 'Quote1',
+      e_n: 'Quote1',
+      e_v: {
+        Year: year,
+        Make: make,
+        Model: model,
+        Size: size,
+        Part: part,
+      },
+    }
+    const bdb = await fetch(
+      'https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Data',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-bang-api-key': '2863199089451966548',
+        },
+        body: JSON.stringify(payloadOne),
+      }
+    )
+    if (bdb) {
+      router.push(`/search/${part}/${make}/${model}/${year}/${size}`)
+    }
+  }
+
   return (
     <div className="w-full max-w-xl">
       <form className="mb-4 grid grid-cols-12 gap-1 rounded bg-white px-8 pb-8 pt-6 shadow-md sm:min-w-[450px] sm:gap-4">
@@ -264,7 +299,8 @@ const FormComponent = () => {
               const size = formSelections.size
                 .replace(/ /g, '_')
                 .replace(/-/g, '_')
-              router.push(`/search/${part}/${make}/${model}/${year}/${size}`)
+              sendPartOne(part, make, model, year, size)
+              // router.push(`/search/${part}/${make}/${model}/${year}/${size}`)
             }}
             // href={{ pathname: '/search', query: formSelections }}
             disabled={

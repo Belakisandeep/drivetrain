@@ -59,6 +59,22 @@ const CarPartCard = ({
         Phone: formData.number,
         Email: formData.email,
       }
+      const _id = decodeURIComponent(document.cookie)
+        .split(';')
+        .filter((x) => x.includes('_pk_id.used-engines-drivetrain.us'))[0]
+        .split('=')[1]
+        .split('.')[0]
+      const payloadTwo = {
+        _id,
+        e_a: 'Quote2',
+        e_c: 'Quote2',
+        e_n: 'Quote2',
+        e_v: {
+          Name: formData.name,
+          Phone: formData.number,
+          Email: formData.email,
+        },
+      }
       const mail = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -66,6 +82,17 @@ const CarPartCard = ({
         },
         body: JSON.stringify(payload),
       })
+      const ptwo = await fetch(
+        'https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Data',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-bang-api-key': '2863199089451966548',
+          },
+          body: JSON.stringify(payloadTwo),
+        }
+      )
 
       const bdb = await fetch(
         'https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Leads_Data',
@@ -78,7 +105,7 @@ const CarPartCard = ({
           body: JSON.stringify(payload),
         }
       )
-      if (mail) {
+      if (mail && bdb && ptwo) {
         setLoading(false)
         router.push('/thankyou')
       }

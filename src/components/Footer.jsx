@@ -151,7 +151,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2">
           <Navigation />
           <div className="flex lg:justify-end">
-            <NewsletterForm />
+            {/* <NewsletterForm /> */}
           </div>
         </div>
         <div className="mb-20 mt-24 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 border-t border-orange-400/10 pt-12">
