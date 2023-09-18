@@ -148,7 +148,7 @@ const CarPartCard = ({
           <a
             id="call-part-avail"
             href="tel:+18882338259"
-            className="flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
+            className="call-btn flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
           >
             <PhoneIcon className="animate-phone-ring h-6" />
             <span className="ml-2">Call Now</span>
@@ -198,7 +198,7 @@ const CarPartCard = ({
           <a
             id="call-part-avail"
             href="tel:+18882338259"
-            className="flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
+            className="call-btn flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
           >
             <PhoneIcon className="animate-phone-ring h-6" />
             <span className="ml-2">Call Now</span>

@@ -84,7 +84,7 @@ export default function ReturnPolicy() {
               <a
                 id="call-hero-main"
                 href="tel:+18882338259"
-                className="flex w-fit items-center rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
+                className="call-btn flex w-fit items-center rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
               >
                 <PhoneIcon className="animate-phone-ring h-6" />
                 <span className="ml-2">+1-888-233-8259</span>

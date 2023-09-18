@@ -131,7 +131,7 @@ function Header({
             <a
               id="call-nav"
               href="tel:+18882338259"
-              className="hidden items-center sm:flex"
+              className="call-btn hidden items-center sm:flex"
             >
               <div className="rounded-full border border-orange-400 p-2">
                 <PhoneIcon className="animate-phone-ring h-6 text-orange-400" />
@@ -176,7 +176,7 @@ function Header({
           <a
             id="call-nav"
             href="tel:+18882338259"
-            className="flex items-center"
+            className="call-btn flex items-center"
           >
             <div className="rounded-full border border-orange-400 p-1 sm:p-4">
               <PhoneIcon className="animate-phone-ring h-3 text-orange-400 sm:h-5" />

@@ -26,7 +26,7 @@ export default function Thankyou() {
         <a
           id="call-inst-quote"
           href="tel:+18882338259"
-          className="flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600 sm:mr-4"
+          className="call-btn flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600 sm:mr-4"
         >
           <PhoneIcon className="animate-phone-ring h-6" />
           <span className="ml-2">Give us a call.</span>
