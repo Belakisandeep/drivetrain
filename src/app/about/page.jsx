@@ -44,10 +44,10 @@ function Culture() {
       <Container className="mt-16">
         <GridList>
           <GridListItem title="Quality" invert>
-            At Engines & Drivetrain, we have been serving customers all over the USA for
-            over a decade, providing them with top-quality used engines. We
-            specialize in offering low mileage engines that are compatible with
-            almost every car and truck model available in the market. Our
+            At Engines & Drivetrain, we have been serving customers all over the
+            USA for over a decade, providing them with top-quality used engines.
+            We specialize in offering low mileage engines that are compatible
+            with almost every car and truck model available in the market. Our
             commitment to quality ensures that our used engines stand
             unparalleled in the automobile industry, delivering the performance
             and reliability you can trust.
@@ -61,13 +61,13 @@ function Culture() {
             hassle-free experience.
           </GridListItem>
           <GridListItem title="Warranty" invert>
-            At Engines & Drivetrain, affordability meets reliability. We understand that
-            purchasing a used engine is a significant investment, which is why
-            we offer competitive prices without compromising on quality. To
-            provide you with peace of mind, we back all our used engines with an
-            exclusive 3 to 5-year warranty. This warranty safeguards your
-            purchase, giving you confidence and assurance in your engine&apos;s
-            performance.
+            At Engines & Drivetrain, affordability meets reliability. We
+            understand that purchasing a used engine is a significant
+            investment, which is why we offer competitive prices without
+            compromising on quality. To provide you with peace of mind, we back
+            all our used engines with an exclusive 3 to 5-year warranty. This
+            warranty safeguards your purchase, giving you confidence and
+            assurance in your engine&apos;s performance.
           </GridListItem>
         </GridList>
       </Container>
@@ -278,6 +278,7 @@ export default async function About() {
             <div className="mt-4 text-2xl">
               <span className="text-white">Speak with our specialist.</span>
               <a
+                id="call-hero-main"
                 href="tel:+18882338259"
                 className="flex w-fit items-center rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
               >

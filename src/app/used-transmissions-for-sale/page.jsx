@@ -353,8 +353,8 @@ export default function UsedTransmission() {
           <FormComponent />
           <div className="px-2 sm:px-0 sm:pl-16">
             <h1 className="hidden font-display text-2xl font-semibold tracking-tight text-orange-400 [text-wrap:balance] sm:text-3xl sm:text-orange-950 md:block">
-              Buy an &quot;A&quot; grade used transmission that comes with 3-5 Years
-              warranty.
+              Buy an &quot;A&quot; grade used transmission that comes with 3-5
+              Years warranty.
             </h1>
             <div className="flex items-center py-3">
               <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
@@ -419,6 +419,7 @@ export default function UsedTransmission() {
             <div className="mt-4 text-2xl">
               <span className="text-white">Speak with our specialist.</span>
               <a
+                id="call-hero-main"
                 href="tel:+18882338259"
                 className="flex w-fit items-center rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
               >

@@ -128,7 +128,11 @@ function Header({
             {/* <CallToActionLink href="mailto:info@Engines & Drivetrain.com" className="hidden md:block" invert={invert}>
             info@Engines & Drivetrain.com
           </CallToActionLink> */}
-            <a href="tel:+18882338259" className="hidden items-center sm:flex">
+            <a
+              id="call-nav"
+              href="tel:+18882338259"
+              className="hidden items-center sm:flex"
+            >
               <div className="rounded-full border border-orange-400 p-2">
                 <PhoneIcon className="animate-phone-ring h-6 text-orange-400" />
               </div>
@@ -169,7 +173,11 @@ function Header({
               : 'item-center flex justify-between border-t border-t-orange-400 py-1 sm:hidden'
           }
         >
-          <a href="tel:+18882338259" className="flex items-center">
+          <a
+            id="call-nav"
+            href="tel:+18882338259"
+            className="flex items-center"
+          >
             <div className="rounded-full border border-orange-400 p-1 sm:p-4">
               <PhoneIcon className="animate-phone-ring h-3 text-orange-400 sm:h-5" />
             </div>

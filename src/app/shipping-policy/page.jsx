@@ -82,6 +82,7 @@ export default function ShippingPolicy() {
             <div className="mt-4 text-2xl">
               <span className="text-white">Speak with our specialist.</span>
               <a
+                id="call-hero-main"
                 href="tel:+18882338259"
                 className="flex w-fit items-center rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
               >
@@ -97,11 +98,12 @@ export default function ShippingPolicy() {
           Shipping Policy
         </p>
         <p className="pt-4 font-display text-base">
-          Welcome to Engines & Drivetrain, where we bring a world of high-quality auto
-          parts right to your doorstep. Our shipping policy is designed to
-          provide a seamless delivery experience for all our valued customers.
-          Please take a moment to read through this policy to understand how we
-          ensure a fast, efficient, and satisfactory delivery process.
+          Welcome to Engines & Drivetrain, where we bring a world of
+          high-quality auto parts right to your doorstep. Our shipping policy is
+          designed to provide a seamless delivery experience for all our valued
+          customers. Please take a moment to read through this policy to
+          understand how we ensure a fast, efficient, and satisfactory delivery
+          process.
         </p>
         <p className="pt-4 font-display text-base">
           <p className="font-display text-xl font-medium text-orange-400 ">
@@ -164,9 +166,9 @@ export default function ShippingPolicy() {
           experience; your satisfaction is our highest priority.
         </p>
         <p className="pt-4 font-display text-base">
-          Disclaimer: Engines & Drivetrain reserves the right to update this shipping
-          policy periodically to accommodate changes in our practices or
-          services. We strongly recommend our customers to review this policy
+          Disclaimer: Engines & Drivetrain reserves the right to update this
+          shipping policy periodically to accommodate changes in our practices
+          or services. We strongly recommend our customers to review this policy
           frequently to stay informed about any changes.
         </p>
       </Container>
@@ -175,17 +177,17 @@ export default function ShippingPolicy() {
           Delivery Timeframe and Process
         </p>
         <p className="pt-4 font-display text-base">
-          At Engines & Drivetrain, we take pride in our efficient order-handling process.
-          Most products are packed for shipping or sent from our warehouses
-          within 24 to 48 hours of your order being verified. This swift
-          turnaround helps us get your required auto parts to you as quickly as
-          possible. Delivery times can vary, primarily depending on two key
-          factors - the package size and the delivery destination. Typically,
-          small to medium-sized packages are delivered to your doorstep within
-          3-5 business days, excluding weekends and holidays, from the date they
-          depart from our warehouses. We always strive to ensure that our
-          delivery process is quick, allowing you to receive your auto parts
-          without undue delay.
+          At Engines & Drivetrain, we take pride in our efficient order-handling
+          process. Most products are packed for shipping or sent from our
+          warehouses within 24 to 48 hours of your order being verified. This
+          swift turnaround helps us get your required auto parts to you as
+          quickly as possible. Delivery times can vary, primarily depending on
+          two key factors - the package size and the delivery destination.
+          Typically, small to medium-sized packages are delivered to your
+          doorstep within 3-5 business days, excluding weekends and holidays,
+          from the date they depart from our warehouses. We always strive to
+          ensure that our delivery process is quick, allowing you to receive
+          your auto parts without undue delay.
         </p>
         <p className="pt-4 font-display text-base">
           Some orders may contain more significant parts, such as bumpers,
@@ -209,8 +211,9 @@ export default function ShippingPolicy() {
           have about your delivery. Your understanding and patience in such
           situations are highly appreciated. And as always, we are more than
           happy to help you with any queries about our shipping process or any
-          other aspect of your Engines & Drivetrain experience. We remain committed to
-          making your shopping journey with us as seamless as possible.
+          other aspect of your Engines & Drivetrain experience. We remain
+          committed to making your shopping journey with us as seamless as
+          possible.
         </p>
       </Container>
       <Container className="pt-0 sm:pt-32">
@@ -290,35 +293,37 @@ export default function ShippingPolicy() {
           Risk of Loss
         </p>
         <p className="pt-4 font-display text-base">
-          All items purchased from Engines & Drivetrain are handled under our shipping
-          terms, which operate on a F.O.B. (Free on Board) shipping point basis.
-          This means that the risk of loss and title for each item is
-          transferred to you at the shipping point - this transfer occurs when
-          the carrier accepts the goods for transport. Given this policy, we are
-          not directly responsible for lost or stolen packages. However, we
-          understand the frustration and inconvenience that such incidents can
-          cause. We are always ready to assist you in filing a claim with the
-          shipping company to address these issues.
+          All items purchased from Engines & Drivetrain are handled under our
+          shipping terms, which operate on a F.O.B. (Free on Board) shipping
+          point basis. This means that the risk of loss and title for each item
+          is transferred to you at the shipping point - this transfer occurs
+          when the carrier accepts the goods for transport. Given this policy,
+          we are not directly responsible for lost or stolen packages. However,
+          we understand the frustration and inconvenience that such incidents
+          can cause. We are always ready to assist you in filing a claim with
+          the shipping company to address these issues.
         </p>
         <p className="pt-4 font-display text-base">
           If you return any items, please ensure they are packaged securely to
           avoid damage during transit. Secure packaging is crucial to prevent
-          potential loss or damage and ensure you&apos;re not liable for such loss.
-          It&apos;s essential to contact us immediately if your entire shipment has
-          not been received within two (2) full days following the carrier&apos;s
-          estimated delivery date. Any discrepancies or issues need to be
-          reported to us within twenty-one (21) days from the date of shipment
-          to be eligible for a claim. This timeframe allows us to intervene
-          effectively and liaise with the shipping company on your behalf.
+          potential loss or damage and ensure you&apos;re not liable for such
+          loss. It&apos;s essential to contact us immediately if your entire
+          shipment has not been received within two (2) full days following the
+          carrier&apos;s estimated delivery date. Any discrepancies or issues
+          need to be reported to us within twenty-one (21) days from the date of
+          shipment to be eligible for a claim. This timeframe allows us to
+          intervene effectively and liaise with the shipping company on your
+          behalf.
         </p>
         <p className="pt-4 font-display text-base">
-          Engines & Drivetrain, your satisfaction is our priority. Our dedicated customer
-          service team is always available to assist you with any queries or
-          concerns you may have regarding our shipping policies or any other
-          aspect of your experience with us.
+          Engines & Drivetrain, your satisfaction is our priority. Our dedicated
+          customer service team is always available to assist you with any
+          queries or concerns you may have regarding our shipping policies or
+          any other aspect of your experience with us.
         </p>
         <p className="pt-4 font-display text-base">
-          Thank you for choosing Engines & Drivetrain for all your auto parts needs.
+          Thank you for choosing Engines & Drivetrain for all your auto parts
+          needs.
         </p>
       </Container>
       <ContactSection />

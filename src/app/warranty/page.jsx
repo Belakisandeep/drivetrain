@@ -386,6 +386,7 @@ export default function Warranty() {
             <div className="mt-4 text-2xl">
               <span className="text-white">Speak with our specialist.</span>
               <a
+                id="call-hero-main"
                 href="tel:+18882338259"
                 className="flex w-fit items-center rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
               >
@@ -401,9 +402,9 @@ export default function Warranty() {
           Warranty Policy
         </p>
         <p className="pt-4 font-display text-base">
-          At Engines & Drivetrain, our products are more than just auto parts; they
-          represent our everlasting dedication to quality, dependability, and
-          client happiness. We are aware that each item you purchase from us
+          At Engines & Drivetrain, our products are more than just auto parts;
+          they represent our everlasting dedication to quality, dependability,
+          and client happiness. We are aware that each item you purchase from us
           represents a financial commitment to your car that has to be protected
           and guaranteed.
         </p>
@@ -440,8 +441,8 @@ export default function Warranty() {
           repairs required as a result of using faulty or inappropriate parts.
           Our company aims to develop relationships based on trust and customer
           satisfaction, not only by selling parts. This corporate concept is
-          clearly reflected in Engines & Drivetrain warranty policy. We continue to
-          offer assistance and support to our clients long after the sale
+          clearly reflected in Engines & Drivetrain warranty policy. We continue
+          to offer assistance and support to our clients long after the sale
           finalizes to give them the finest possible service.
         </p>
         <p className="pt-4 font-display text-base">
@@ -456,11 +457,11 @@ export default function Warranty() {
           and testing of parts to their delivery and installation.
         </p>
         <p className="pt-4 font-display text-base">
-          Engines & Drivetrain recognizes the value of backing up our products with
-          a firm warranty policy in a world where trust is valued equally to the
-          product itself. In addition, we are committed to upholding this high
-          level of client pleasure and belief in our goods, delivering a more
-          streamlined and dependable experience for all our clients. Select
+          Engines & Drivetrain recognizes the value of backing up our products
+          with a firm warranty policy in a world where trust is valued equally
+          to the product itself. In addition, we are committed to upholding this
+          high level of client pleasure and belief in our goods, delivering a
+          more streamlined and dependable experience for all our clients. Select
           Engines & Drivetrain to explore the auto parts world confidently. We
           strive to offer customers peace of mind, excellent performance, and
           long-lasting durability in addition to simply selling parts. Put your
@@ -502,8 +503,8 @@ export default function Warranty() {
         <p className="pt-4 font-display text-base">
           The transmission is a critical component of an automobile&apos;s
           intricate ecosystem. It is the brains behind turning the power of your
-          engine into motion. Engines & Drivetrain recognizes the importance of this
-          job and specifically emphasizes our warranty coverage for
+          engine into motion. Engines & Drivetrain recognizes the importance of
+          this job and specifically emphasizes our warranty coverage for
           transmissions, which play a crucial role in the overall operation of
           your car.
         </p>
@@ -565,9 +566,9 @@ export default function Warranty() {
           It intends to offer a hassle-free ownership experience, allowing you
           to concentrate on the road ahead rather than the components inside
           your engine. We will support every mile of your journey as we make
-          sure it is as smooth as a transmission covered by a Engines & Drivetrain
-          warranty. Trust in us, and let&apos;s travel through the automotive
-          world together.
+          sure it is as smooth as a transmission covered by a Engines &
+          Drivetrain warranty. Trust in us, and let&apos;s travel through the
+          automotive world together.
         </p>
       </Container>
       {/* <Container className="mt-36 pt-0 sm:pt-32">

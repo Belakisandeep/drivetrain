@@ -82,6 +82,7 @@ export default function ReturnPolicy() {
             <div className="mt-4 text-2xl">
               <span className="text-white">Speak with our specialist.</span>
               <a
+                id="call-hero-main"
                 href="tel:+18882338259"
                 className="flex w-fit items-center rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
               >
@@ -148,11 +149,11 @@ export default function ReturnPolicy() {
           not eligible for return.
         </p>
         <p className="pt-4 font-display text-base">
-          Please be aware that Engines & Drivetrain does not accept responsibility
-          for any extra expenses incurred due to the installation or usage of
-          incorrect or defective parts. This includes any related labor costs,
-          installation fees, towing fees, additional repair costs, or
-          expenditures for rental cars. Before beginning installations, it is
+          Please be aware that Engines & Drivetrain does not accept
+          responsibility for any extra expenses incurred due to the installation
+          or usage of incorrect or defective parts. This includes any related
+          labor costs, installation fees, towing fees, additional repair costs,
+          or expenditures for rental cars. Before beginning installations, it is
           advised to confirm that all parts are appropriate and in good
           condition.
         </p>

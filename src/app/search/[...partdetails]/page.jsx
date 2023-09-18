@@ -119,7 +119,8 @@ const CarPartCard = ({
         </div>
         <div className="mt-4 flex items-end justify-between sm:hidden">
           <a
-            href="tel:+1234567890"
+            id="call-part-avail"
+            href="tel:+18882338259"
             className="flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
           >
             <PhoneIcon className="animate-phone-ring h-6" />
@@ -168,7 +169,8 @@ const CarPartCard = ({
         </div>
         <div className="mt-4 flex items-end justify-between">
           <a
-            href="tel:+1234567890"
+            id="call-part-avail"
+            href="tel:+18882338259"
             className="flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
           >
             <PhoneIcon className="animate-phone-ring h-6" />
@@ -335,4 +337,3 @@ export default function Search({ params }) {
     </div>
   )
 }
-
