@@ -1,6 +1,6 @@
 export const handleCallClick = () => {
     // Define the phone number you want to call
-    const phoneNumber = "+18882338259"; // Replace with your desired phone number
+    const phoneNumber = "+18888551808"; // Replace with your desired phone number
 
     // Open the phone dialer with the phone number
     setTimeout(() => {

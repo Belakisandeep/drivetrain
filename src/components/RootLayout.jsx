@@ -146,7 +146,7 @@ function Header({
               <div className="ml-2">
                 <p className="text-sm">Speak with our specialist now</p>
                 <p className="text-lg font-semibold text-orange-400">
-                  +1-888-233-8259
+                  +1-888-855-1808
                 </p>
               </div>
             </button>
@@ -190,7 +190,7 @@ function Header({
             </div>
             <div className="ml-2">
               <p className="text-sm font-semibold text-orange-400">
-                +1-888-233-8259
+                +1-888-855-1808
               </p>
             </div>
           </button>
