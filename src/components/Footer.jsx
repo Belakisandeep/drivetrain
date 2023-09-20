@@ -146,13 +146,14 @@ function NewsletterForm() {
 
 export function Footer() {
   return (
-    <Container as="footer" className="mt-24 w-full sm:mt-32 lg:mt-40">
-      <FadeIn>
-        <div className="hidden sm:grid grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-1">
+    <Container
+      as="footer"
+      className="mt-24 w-full lg:mt-40"
+    >
+      <FadeIn className="hidden sm:block">
+        <div className="hidden grid-cols-1 gap-x-8 gap-y-16 sm:grid lg:grid-cols-1">
           <Navigation />
-          <div className="flex lg:justify-end">
-            {/* <NewsletterForm /> */}
-          </div>
+          <div className="flex lg:justify-end">{/* <NewsletterForm /> */}</div>
         </div>
         <div className="mb-20 mt-24 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 border-t border-orange-400/10 pt-12">
           <Link href="/" aria-label="Home">
