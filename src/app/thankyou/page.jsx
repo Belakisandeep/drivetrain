@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
 import { ExclamationTriangleIcon, PhoneIcon } from '@heroicons/react/24/outline'
+import { InstButton } from '@/components/shared/NavButton'
 
 export default function Thankyou() {
   return (
@@ -23,14 +24,7 @@ export default function Thankyou() {
             Want an instant quote.
           </h1>
         </div>
-        <a
-          id="call-inst-quote"
-          href="tel:+18882338259"
-          className="call-btn flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600 sm:mr-4"
-        >
-          <PhoneIcon className="animate-phone-ring h-6" />
-          <span className="ml-2">Give us a call.</span>
-        </a>
+        <InstButton />
       </FadeIn>
     </Container>
   )

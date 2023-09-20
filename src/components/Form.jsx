@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Dropdown from './Dropdown'
 
-const FormComponent = () => {
+const FormComponent = ({ part = 'part' }) => {
   const router = useRouter()
   const [formSelections, setFormSelections] = useState({
     part: '',
@@ -59,11 +59,11 @@ const FormComponent = () => {
   }
 
   return (
-    <div className="w-full max-w-xl">
+    <div className="mx-auto w-full max-w-xl">
       <form className="mb-4 grid grid-cols-12 gap-1 rounded bg-white px-8 pb-8 pt-6 shadow-md sm:min-w-[450px] sm:gap-4">
         <div className="col-span-12">
           <p className="mt-2 text-neutral-600">
-            Find your <span className="text-orange-400"> Car Part</span>
+            Find your <span className="text-orange-400"> Car {part}</span>
           </p>
         </div>
         <div className="col-span-12 mb-4 sm:col-span-12">
@@ -269,6 +269,7 @@ const FormComponent = () => {
               defaultValue=""
             >
               <option value="">- Select Option -</option>
+              <option value={"Not Sure"}>Not Sure</option>
               {(
                 formData[formSelections.part]?.[formSelections.make]?.[
                   formSelections.model

@@ -49,7 +49,7 @@ import Saturn from '@/images/clients/logos/27.png'
 import Volkswagen from '@/images/clients/logos/29.png'
 import ChooseUs from '@/images/choose-us.webp'
 import BannerChoose from '@/images/banner-choose.webp'
-import { PhoneIcon } from '@heroicons/react/24/outline'
+import NavButton from '@/components/shared/NavButton'
 
 const clients = [
   ['Porche', porche],
@@ -84,19 +84,19 @@ const clients = [
 
 function Clients() {
   return (
-    <div className="bg-white-400 mt-20 rounded-4xl py-20 sm:py-32">
+    <div className="bg-white-400 rounded-4xl py-10 sm:mt-20 sm:py-32">
       <Container>
         <FadeIn className="flex items-center gap-x-8">
-          <h2 className="text-center font-display text-sm font-semibold tracking-wider text-orange-400 sm:text-left">
+          <p className="text-center font-display text-sm font-semibold tracking-wider text-orange-400 sm:text-left">
             Find Used Engines for Sale by{' '}
             <span className="text-xl">Popular Brands</span>
-          </h2>
+          </p>
           <div className="h-px flex-auto bg-neutral-50" />
         </FadeIn>
         <FadeInStagger faster>
           <ul
             role="list"
-            className="mt-10 grid grid-cols-1 content-center gap-x-8 gap-y-10 lg:grid-cols-7"
+            className="mt-10 grid grid-cols-3 content-center gap-x-4 gap-y-5 sm:gap-x-8 sm:gap-y-10 lg:grid-cols-7"
           >
             {clients.map(([client, logo]) => (
               <li key={client}>
@@ -137,46 +137,46 @@ function Intro({
   ...props
 }) {
   return (
-    <Container {...props}>
-      <FadeIn className="w-full">
-        <h2>
-          {eyebrow && (
-            <>
-              <span
-                className={clsx(
-                  'mb-6 block font-display text-base font-semibold',
-                  invert ? 'text-white' : 'text-orange-400'
-                )}
-              >
-                {eyebrow}
-              </span>
-              <span className="sr-only"> - </span>
-            </>
-          )}
-          <span
-            className={clsx(
-              'block font-display tracking-tight [text-wrap:balance]',
-              smaller
-                ? 'text-2xl font-semibold'
-                : 'text-4xl font-medium sm:text-5xl',
-              invert ? 'text-white' : 'text-orange-400'
-            )}
-          >
-            {title}
-          </span>
-        </h2>
-        {children && (
-          <div
-            className={clsx(
-              'mt-6 text-xl',
-              invert ? 'text-neutral-300' : 'text-neutral-600'
-            )}
-          >
-            {children}
-          </div>
+    // <Container {...props}>
+    <FadeIn className="w-full">
+      <h2>
+        {eyebrow && (
+          <>
+            <span
+              className={clsx(
+                'mb-6 block font-display text-base font-semibold',
+                invert ? 'text-white' : 'text-orange-400'
+              )}
+            >
+              {eyebrow}
+            </span>
+            <span className="sr-only"> - </span>
+          </>
         )}
-      </FadeIn>
-    </Container>
+        <span
+          className={clsx(
+            'block font-display tracking-tight [text-wrap:balance]',
+            smaller
+              ? 'font-semibold sm:text-2xl'
+              : 'text-base font-medium sm:text-5xl',
+            invert ? 'text-white' : 'text-orange-400'
+          )}
+        >
+          {title}
+        </span>
+      </h2>
+      {children && (
+        <div
+          className={clsx(
+            'mt-6 sm:text-xl',
+            invert ? 'text-neutral-300' : 'text-neutral-600'
+          )}
+        >
+          {children}
+        </div>
+      )}
+    </FadeIn>
+    // </Container>
   )
 }
 
@@ -288,22 +288,24 @@ function Services() {
       {/* <Container>
         <div className="grid w-full grid-cols-1 align-middle sm:grid-cols-2">
           <Image src={BannerChoose} alt="About us" unoptimized /> */}
-      <Intro
-        eyebrow="About"
-        title="Who are We?"
-        className="mt-24 sm:mt-32 lg:mt-40"
-      >
-        <p>
-          Engines & Drivetrain was established in 2010 with the objective to
-          provide customers with high- quality and low mileage used engines.
-          Keeping the fact in mind that new vehicle or engine can cost a
-          fortune, we offer largest collection of car engines for sale which is
-          as reliable as the new one & will deliver excellent performance at a
-          low price. We are very particular about the quality of used engines
-          and try & test every piece before selling. Hence, you can be assured
-          of purchasing a reliable used engine for your vehicle.
-        </p>
-      </Intro>
+      <Container className="pt-4">
+        <Intro
+          eyebrow="About"
+          title="Who are We?"
+          className="mt-24 sm:mt-32 lg:mt-40"
+        >
+          <p>
+            Engines & Drivetrain was established in 2010 with the objective to
+            provide customers with high- quality and low mileage used engines.
+            Keeping the fact in mind that new vehicle or engine can cost a
+            fortune, we offer largest collection of car engines for sale which
+            is as reliable as the new one & will deliver excellent performance
+            at a low price. We are very particular about the quality of used
+            engines and try & test every piece before selling. Hence, you can be
+            assured of purchasing a reliable used engine for your vehicle.
+          </p>
+        </Intro>
+      </Container>
       {/* </div>
       </Container> */}
     </>
@@ -327,13 +329,13 @@ export default async function Home() {
   return (
     <>
       <Container formContainer={true} className="mt-12 sm:mt-40">
-        <FadeIn className="flex-column items-center justify-between pt-16 sm:flex md:pt-0">
-          <FormComponent />
-          <div className="px-2 sm:px-0 sm:pl-16">
+        <FadeIn className="flex-column items-center justify-between pt-4 sm:flex md:pt-0">
+          <FormComponent part="Engine" />
+          <div className="mx-auto max-w-xl px-2 sm:px-0 sm:pl-16">
             <h1 className="hidden font-display text-2xl font-semibold tracking-tight text-orange-400 [text-wrap:balance] sm:text-3xl sm:text-orange-950 md:block">
               Find A grade used engines with 3-5 Years warranty.
             </h1>
-            <div className="flex items-center py-3">
+            <div className="flex items-center sm:py-3">
               <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
                 <Image
                   src={Shipped}
@@ -348,7 +350,7 @@ export default async function Home() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center py-3">
+            <div className="flex items-center sm:py-3">
               <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
                 <Image
                   src={WarrantyImage}
@@ -363,7 +365,7 @@ export default async function Home() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center py-3">
+            <div className="flex items-center sm:py-3">
               <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
                 <Image
                   src={Headphones}
@@ -378,7 +380,7 @@ export default async function Home() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center py-3">
+            <div className="flex items-center sm:py-3">
               <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
                 <Image
                   src={Return}
@@ -395,14 +397,7 @@ export default async function Home() {
             </div>
             <div className="mt-4 text-2xl">
               <span className="text-white">Speak with our specialist.</span>
-              <a
-                id="call-hero-main"
-                href="tel:+18882338259"
-                className="call-btn flex w-fit items-center rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
-              >
-                <PhoneIcon className="animate-phone-ring h-6" />
-                <span className="ml-2">+1-888-233-8259</span>
-              </a>
+              <NavButton />
             </div>
           </div>
         </FadeIn>

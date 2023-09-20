@@ -27,12 +27,11 @@ import Certified from '@/images/warranty/certified.svg'
 import WarrantyImage from '@/images/warranty/warranty.svg'
 import Headphones from '@/images/warranty/headphone.svg'
 import Shipped from '@/images/warranty/shipped.svg'
-
-import { PhoneIcon } from '@heroicons/react/24/outline'
+import NavButton from '@/components/shared/NavButton'
 
 function CaseStudies({ caseStudies }) {
   return (
-    <Container className="mt-40">
+    <Container className="mt-12 sm:mt-40">
       <FadeIn>
         <h2 className="font-display text-2xl font-semibold text-orange-400">
           Why go for a used Engine?
@@ -42,13 +41,13 @@ function CaseStudies({ caseStudies }) {
         {caseStudies.map((caseStudy) => (
           <FadeIn key={caseStudy.client}>
             <article>
-              <Border className="grid grid-cols-3 gap-x-8 gap-y-8 pt-16">
+              <Border className="grid grid-cols-3 gap-x-8 gap-y-8 pt-4 sm:pt-16">
                 <div className="col-span-full sm:flex sm:items-center sm:justify-between sm:gap-x-8 lg:col-span-1 lg:block">
                   <div className="sm:flex sm:items-center sm:gap-x-6 lg:block">
                     <Image
                       src={caseStudy.logo}
                       alt=""
-                      className="h-16 w-16 flex-none"
+                      className="h-16 w-16 mx-auto sm:mx-0 flex-none"
                       unoptimized
                     />
                     <h3 className="mt-6 text-sm font-semibold text-orange-400 sm:mt-0 lg:mt-8">
@@ -148,14 +147,14 @@ export default async function Work() {
   return (
     <>
       <Container formContainer={true} className="mt-12 sm:mt-40">
-        <FadeIn className="flex-column items-center justify-between pt-16 sm:flex md:pt-0">
-          <FormComponent />
-          <div className="px-2 sm:px-0 sm:pl-16">
+        <FadeIn className="flex-column items-center justify-between pt-4 sm:flex md:pt-0">
+          <FormComponent part='Engine' />
+          <div className="mx-auto max-w-xl px-2 sm:px-0 sm:pl-16">
             <h1 className="hidden font-display text-2xl font-semibold tracking-tight text-orange-400 [text-wrap:balance] sm:text-3xl sm:text-orange-950 md:block">
               Buy an &quot;A&quot; grade used engine that comes with 3-5 Years
               warranty.
             </h1>
-            <div className="flex items-center py-3">
+            <div className="flex items-center sm:py-3">
               <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
                 <Image
                   src={Shipped}
@@ -170,7 +169,7 @@ export default async function Work() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center py-3">
+            <div className="flex items-center sm:py-3">
               <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
                 <Image
                   src={WarrantyImage}
@@ -185,7 +184,7 @@ export default async function Work() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center py-3">
+            <div className="flex items-center sm:py-3">
               <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
                 <Image
                   src={Headphones}
@@ -200,7 +199,7 @@ export default async function Work() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center py-3">
+            <div className="flex items-center sm:py-3">
               <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
                 <Image
                   src={Return}
@@ -217,14 +216,7 @@ export default async function Work() {
             </div>
             <div className="mt-4 text-2xl">
               <span className="text-white">Speak with our specialist.</span>
-              <a
-                id="call-hero-main"
-                href="tel:+18882338259"
-                className="call-btn flex w-fit items-center rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
-              >
-                <PhoneIcon className="animate-phone-ring h-6" />
-                <span className="ml-2">+1-888-233-8259</span>
-              </a>
+              <NavButton />
             </div>
           </div>
         </FadeIn>

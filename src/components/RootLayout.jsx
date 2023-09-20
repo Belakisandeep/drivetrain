@@ -33,6 +33,7 @@ import logo from '@/images/clients/logos/logos.svg'
 import banner from '@/images/landing-banner.jpg'
 import { CallToAction, CallToActionLink } from './CallToAction'
 import { ClockIcon, PhoneIcon } from '@heroicons/react/24/outline'
+import { handleCallClick } from '@/lib/callButton'
 
 const RootLayoutContext = createContext({})
 
@@ -108,8 +109,14 @@ function Header({
           >
             <div className="flex items-center justify-center overflow-hidden py-1">
               <p className="font-display text-xl font-semibold tracking-wider text-orange-950">
-                <span className="text-orange-400">E</span>ngines &{' '}
-                <span className="text-orange-400">D</span>rivetrain
+                <span className={invert ? 'text-white' : 'text-orange-400'}>
+                  E
+                </span>
+                ngines &{' '}
+                <span className={invert ? 'text-white' : 'text-orange-400'}>
+                  D
+                </span>
+                rivetrain
               </p>
               {/* <Image className="w-full" src={logo} alt="logo" unoptimized /> */}
             </div>
@@ -128,9 +135,9 @@ function Header({
             {/* <CallToActionLink href="mailto:info@Engines & Drivetrain.com" className="hidden md:block" invert={invert}>
             info@Engines & Drivetrain.com
           </CallToActionLink> */}
-            <a
+            <button
               id="call-nav"
-              href="tel:+18882338259"
+              onClick={handleCallClick}
               className="call-btn hidden items-center sm:flex"
             >
               <div className="rounded-full border border-orange-400 p-2">
@@ -142,7 +149,7 @@ function Header({
                   +1-888-233-8259
                 </p>
               </div>
-            </a>
+            </button>
             <button
               ref={toggleRef}
               type="button"
@@ -173,9 +180,9 @@ function Header({
               : 'item-center flex justify-between border-t border-t-orange-400 py-1 sm:hidden'
           }
         >
-          <a
+          <button
             id="call-nav"
-            href="tel:+18882338259"
+            onClick={handleCallClick}
             className="call-btn flex items-center"
           >
             <div className="rounded-full border border-orange-400 p-1 sm:p-4">
@@ -186,7 +193,7 @@ function Header({
                 +1-888-233-8259
               </p>
             </div>
-          </a>
+          </button>
           <div className="my-auto hidden text-xs sm:block">
             M-F 9AM - 8PM EST
             <br />
@@ -407,7 +414,11 @@ function RootLayoutInner({ children }) {
           layout
           id={panelId}
           style={{ height: expanded ? 'auto' : '0.5rem' }}
-          className="relative z-50 overflow-hidden bg-orange-400 pt-2"
+          className={
+            expanded
+              ? 'relative z-50 overflow-hidden bg-orange-400 pt-2'
+              : 'relative z-50 overflow-hidden pt-2'
+          }
           aria-hidden={expanded ? undefined : 'true'}
           inert={expanded ? undefined : ''}
         >

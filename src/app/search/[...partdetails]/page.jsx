@@ -11,6 +11,7 @@ import { ExclamationTriangleIcon, PhoneIcon } from '@heroicons/react/24/outline'
 import usedEngines from '@/images/clients/logos/used_engine.webp'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { AvailButton } from '@/components/shared/NavButton'
 
 const CarPartCard = ({
   part,
@@ -136,25 +137,8 @@ const CarPartCard = ({
   }
 
   return (
-    <div className="mt-8 flex w-full flex-col-reverse sm:mt-0 sm:flex-row">
-      <div className="rounded-b-lg bg-white bg-opacity-10 p-6 text-white shadow-md backdrop-blur-md backdrop-filter sm:w-1/2 sm:rounded-l-lg sm:rounded-t-none">
-        <div className="flex flex-col items-center pt-4 sm:hidden">
-          <ExclamationTriangleIcon className="w-8 animate-bounce text-orange-400" />
-          <p className=" text-orange-400">
-            This part is available with us. Please call to get a free quote or
-            fill up this form.
-          </p>
-        </div>
-        <div className="mt-4 flex items-end justify-between sm:hidden">
-          <a
-            id="call-part-avail"
-            href="tel:+18882338259"
-            className="call-btn flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
-          >
-            <PhoneIcon className="animate-phone-ring h-6" />
-            <span className="ml-2">Call Now</span>
-          </a>
-        </div>
+    <div className="mt-2 flex w-full flex-col-reverse sm:mt-0 sm:flex-row">
+      <div className="rounded-b-lg bg-black bg-opacity-10 p-6 text-white shadow-md backdrop-blur-md backdrop-filter sm:w-1/2 sm:rounded-l-lg sm:rounded-t-none">
         <h2 className="mb-2 mt-12  text-xl font-semibold text-gray-800 sm:mt-0">
           {`${make} ${model} ${year}`}{' '}
           <span className="font-normal">({part})</span>
@@ -188,22 +172,8 @@ const CarPartCard = ({
             alt="UsedEngines"
           />
         </div>
-        <div className="hidden items-center sm:flex">
-          <ExclamationTriangleIcon className="w-12 animate-bounce pr-2 text-orange-400" />
-          <p className="pt-4 text-orange-400">
-            This part is available with us. Please call to get a free quote or
-            fill up this form.
-          </p>
-        </div>
         <div className="mt-4 flex items-end justify-between">
-          <a
-            id="call-part-avail"
-            href="tel:+18882338259"
-            className="call-btn flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
-          >
-            <PhoneIcon className="animate-phone-ring h-6" />
-            <span className="ml-2">Call Now</span>
-          </a>
+          <AvailButton />
           <span className="hidden text-sm sm:block">
             Give us a call right away if you can&apos;t find your part.
           </span>
@@ -263,7 +233,7 @@ const CarPartCard = ({
             onChange={handleChange}
           />
         </div>
-        <div className="mt-4">
+        <div className="mb-4 mt-4">
           <button
             disabled={loading}
             type="submit"
@@ -301,6 +271,14 @@ const CarPartCard = ({
           </Link>
         </div>
       </form>
+      <div className="flex flex-col items-center sm:hidden">
+        <ExclamationTriangleIcon className="w-8 animate-bounce text-orange-400" />
+        <p className=" text-orange-400">
+          This part is available with us. Please call to get a free quote or
+          fill up this form.
+        </p>
+        <AvailButton />
+      </div>
     </div>
   )
 }
