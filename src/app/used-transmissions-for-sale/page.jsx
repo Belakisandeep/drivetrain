@@ -418,7 +418,7 @@ export default function UsedTransmission() {
               </div>
             </div>
             <div className="mt-4 text-2xl">
-              <span className="text-white">Speak with our specialist.</span>
+              <span className="text-black">Speak with our specialist.</span>
               <NavButton />
             </div>
           </div>

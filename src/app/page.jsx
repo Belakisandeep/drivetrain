@@ -312,6 +312,73 @@ function Services() {
   )
 }
 
+export function HeroForm({ type='Engine' }) {
+  return (
+    <div className="flex-col-reverse sm:flex-row items-center justify-between pt-4 flex mt-20 sm:mt-36">
+      <FormComponent part="Engine" />
+      <div className="mx-auto max-w-xl px-2 sm:px-0 ">
+        <h1 className="hidden font-display text-2xl font-semibold tracking-tight text-orange-400 [text-wrap:balance] sm:text-3xl sm:text-orange-950 md:block">
+          Find A grade used {type} with 3-5 Years warranty.
+        </h1>
+        <div className="flex items-center sm:py-3">
+          <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
+            <Image src={Shipped} alt="Shipping" className="h-8" unoptimized />
+          </div>
+          <div>
+            <p className="font-display font-medium text-orange-400 sm:text-orange-950 ">
+              Flat Rate Shipping (Commercial address)
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center sm:py-3">
+          <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
+            <Image
+              src={WarrantyImage}
+              alt="Shipping"
+              className="h-8"
+              unoptimized
+            />
+          </div>
+          <div>
+            <p className="font-display font-medium text-orange-400 sm:text-orange-950 ">
+              Up to 5 Years Unlimited Mile Warranty
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center sm:py-3">
+          <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
+            <Image
+              src={Headphones}
+              alt="Shipping"
+              className="h-8"
+              unoptimized
+            />
+          </div>
+          <div>
+            <p className="font-display font-medium text-orange-400 sm:text-orange-950 ">
+              Excellent Customer Support
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center sm:py-3">
+          <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
+            <Image src={Return} alt="Shipping" className="h-8" unoptimized />
+          </div>
+          <div>
+            <p className="font-display font-medium text-orange-400 sm:text-orange-950 ">
+              No core charge for 30 days <br /> (For Transmission)
+            </p>
+          </div>
+        </div>
+        <div className="mt-4 text-center sm:text-left text-2xl">
+          <span className="text-black">Speak with our specialist.</span>
+          <NavButton />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export const metadata = {
   description: `Engines & Drivetrain was established in 2010 with the objective to provide
     customers with high- quality and low mileage used engines. Keeping the
@@ -328,80 +395,8 @@ export default async function Home() {
 
   return (
     <>
-      <Container formContainer={true} className="mt-12 sm:mt-40">
-        <FadeIn className="flex-column items-center justify-between pt-4 sm:flex md:pt-0">
-          <FormComponent part="Engine" />
-          <div className="mx-auto max-w-xl px-2 sm:px-0 sm:pl-16">
-            <h1 className="hidden font-display text-2xl font-semibold tracking-tight text-orange-400 [text-wrap:balance] sm:text-3xl sm:text-orange-950 md:block">
-              Find A grade used engines with 3-5 Years warranty.
-            </h1>
-            <div className="flex items-center sm:py-3">
-              <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
-                <Image
-                  src={Shipped}
-                  alt="Shipping"
-                  className="h-8"
-                  unoptimized
-                />
-              </div>
-              <div>
-                <p className="font-display font-medium text-orange-400 sm:text-orange-950 ">
-                  Flat Rate Shipping (Commercial address)
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center sm:py-3">
-              <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
-                <Image
-                  src={WarrantyImage}
-                  alt="Shipping"
-                  className="h-8"
-                  unoptimized
-                />
-              </div>
-              <div>
-                <p className="font-display font-medium text-orange-400 sm:text-orange-950 ">
-                  Up to 5 Years Unlimited Mile Warranty
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center sm:py-3">
-              <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
-                <Image
-                  src={Headphones}
-                  alt="Shipping"
-                  className="h-8"
-                  unoptimized
-                />
-              </div>
-              <div>
-                <p className="font-display font-medium text-orange-400 sm:text-orange-950 ">
-                  Excellent Customer Support
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center sm:py-3">
-              <div className="mr-2 flex h-12 w-12 items-center  rounded-full bg-white">
-                <Image
-                  src={Return}
-                  alt="Shipping"
-                  className="h-8"
-                  unoptimized
-                />
-              </div>
-              <div>
-                <p className="font-display font-medium text-orange-400 sm:text-orange-950 ">
-                  No core charge for 30 days <br /> (For Transmission)
-                </p>
-              </div>
-            </div>
-            <div className="mt-4 text-2xl">
-              <span className="text-white">Speak with our specialist.</span>
-              <NavButton />
-            </div>
-          </div>
-        </FadeIn>
-      </Container>
+      <HeroForm />
+      <Container formContainer={true} className="mt-12 sm:mt-40"></Container>
 
       <Clients />
 
