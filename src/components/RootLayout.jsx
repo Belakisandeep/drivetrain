@@ -480,7 +480,8 @@ function RootLayoutInner({ children }) {
           /> */}
           <Image
             src={banner}
-            unoptimized={false}
+            unoptimized
+            priority={true}
             alt="bg"
             className="absolute inset-x-0 -top-14 -z-10 hidden h-[800px] w-full fill-neutral-50 stroke-orange-400/5 sm:block"
           />
