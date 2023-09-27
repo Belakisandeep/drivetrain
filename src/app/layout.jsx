@@ -13,7 +13,7 @@ export const metadata = {
 export default function Layout({ children }) {
   return (
     <html lang="en" className="h-full bg-orange-400 text-base antialiased">
-      <Script id="BDB_BASE_FILE" strategy="afterInteractive">
+      <Script id="BDB_BASE_FILE" strategy="lazyOnload">
         {`
 var _paq = (window._paq = window._paq || []);
 _paq.push(['trackPageView']);
@@ -35,7 +35,7 @@ _paq.push(['trackAllContentImpressions']);
       `}
       </Script>
 
-      <Script id="LOCATION" strategy="afterInteractive">
+      <Script id="LOCATION" strategy="lazyOnload">
         {`  
         async function getLocationData() {
     try {
@@ -53,7 +53,7 @@ _paq.push(['trackAllContentImpressions']);
   getLocationData();`}
       </Script>
 
-      <Script id="BDB_CONTAINERS" strategy="afterInteractive">
+      <Script id="BDB_CONTAINERS" strategy="lazyOnload">
         {`  var _mtm = window._mtm = window._mtm || [];
   _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
   var d = document,
