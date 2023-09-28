@@ -13,8 +13,9 @@ export const metadata = {
 export default function Layout({ children }) {
   return (
     <html lang="en" className="h-full bg-orange-400 text-base antialiased">
-      <Script id="BDB_BASE_FILE" strategy="lazyOnload">
-        {`
+      <head>
+        <Script id="BDB_BASE_FILE" strategy="beforeInteractive">
+          {`
 var _paq = (window._paq = window._paq || []);
 _paq.push(['trackPageView']);
 _paq.push(['enableLinkTracking']);
@@ -33,10 +34,10 @@ _paq.push(['trackAllContentImpressions']);
     s.parentNode.insertBefore(script, s);
 })();
       `}
-      </Script>
+        </Script>
 
-      <Script id="LOCATION" strategy="lazyOnload">
-        {`  
+        <Script id="LOCATION" strategy="beforeInteractive">
+          {`  
         async function getLocationData() {
     try {
       const response = await fetch(
@@ -51,10 +52,10 @@ _paq.push(['trackAllContentImpressions']);
   }
 
   getLocationData();`}
-      </Script>
+        </Script>
 
-      <Script id="BDB_CONTAINERS" strategy="lazyOnload">
-        {`  var _mtm = window._mtm = window._mtm || [];
+        <Script id="BDB_CONTAINERS" strategy="beforeInteractive">
+          {`  var _mtm = window._mtm = window._mtm || [];
   _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
   var d = document,
   s = d.getElementsByTagName('script')[0];
@@ -63,10 +64,10 @@ _paq.push(['trackAllContentImpressions']);
   script.async = true;
   script.src = 'https://cdn.bangdb.com/tm/KpG4GoZiM6Py/3fbcc18fe6f44f56934d055112a2bb88/mastercontainer.js';
   s.parentNode.insertBefore(script, s);`}
-      </Script>
+        </Script>
 
-      <Script id="bing" strategy="afterInteractive">
-        {`(function(w,d,t,r,u)
+        <Script id="bing" strategy="afterInteractive">
+          {`(function(w,d,t,r,u)
           {
               var f,n,i;
               w[u]=w[u]||[],f=function()
@@ -82,15 +83,16 @@ _paq.push(['trackAllContentImpressions']);
               i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)
           })
           (window,document,"script","//bat.bing.com/bat.js","uetq");`}
-      </Script>
+        </Script>
 
-      <Script id="gt" strategy="afterInteractive">
-        {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        <Script id="gt" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-WS4Q9DGK');`}
-      </Script>
+        </Script>
+      </head>
 
       <body className="flex min-h-full flex-col">
         <RootLayout>{children}</RootLayout>
