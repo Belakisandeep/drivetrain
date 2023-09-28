@@ -1,8 +1,5 @@
 'use client'
 
-import { formData } from '@/lib/formData'
-import { PhoneIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -31,6 +28,14 @@ const FormComponent = () => {
 
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
+  const [query, setQuery] = useState('/api/formData')
+  const [options, setOptions] = useState({
+    part: ['Engine', 'Transmission'],
+    make: [],
+    model: [],
+    year: [],
+    option: [],
+  })
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -63,7 +68,7 @@ const FormComponent = () => {
         Name: formDataLoc.name,
         Phone: formDataLoc.number,
         Email: formDataLoc.email,
-        _id
+        _id,
       }
       const mail = await fetch('/api/contact', {
         method: 'POST',
@@ -114,7 +119,7 @@ const FormComponent = () => {
   }
 
   return (
-    <div className="w-full mx-auto max-w-xl">
+    <div className="mx-auto w-full max-w-xl">
       <form
         id="quote-form"
         onSubmit={handleSubmit}
@@ -132,7 +137,7 @@ const FormComponent = () => {
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
             required=""
             defaultValue=""
-            onChange={(e) => {
+            onChange={async (e) => {
               setFormSelections((prev) => ({
                 ...prev,
                 part: e.target.value,
@@ -141,10 +146,29 @@ const FormComponent = () => {
                 year: '',
                 size: '',
               }))
+              const data = await fetch(`/api/formData/${e.target.value}`)
+              const temp = await data.json()
+              if (temp.success) {
+                setOptions((prev) => ({
+                  ...prev,
+                  make: temp.success,
+                  model: [],
+                  year: [],
+                  option: [],
+                }))
+              } else {
+                setOptions((prev) => ({
+                  ...prev,
+                  make: [],
+                  model: [],
+                  year: [],
+                  option: [],
+                }))
+              }
             }}
           >
             <option value="">- Select Part -</option>
-            {Object.keys(formData).map((part) => (
+            {options.part.map((part) => (
               <option key={part} value={part}>
                 {part}
               </option>
@@ -160,7 +184,7 @@ const FormComponent = () => {
             defaultValue=""
             disabled={formSelections.part === ''}
             data-gtm-form-interact-field-id="0"
-            onChange={(e) => {
+            onChange={async (e) => {
               setFormSelections((prev) => ({
                 ...prev,
                 make: e.target.value,
@@ -168,10 +192,29 @@ const FormComponent = () => {
                 year: '',
                 size: '',
               }))
+              const data = await fetch(
+                `/api/formData/${formSelections.part}/${e.target.value}`
+              )
+              const temp = await data.json()
+              if (temp.success) {
+                setOptions((prev) => ({
+                  ...prev,
+                  model: temp.success,
+                  year: [],
+                  option: [],
+                }))
+              } else {
+                setOptions((prev) => ({
+                  ...prev,
+                  model: [],
+                  year: [],
+                  option: [],
+                }))
+              }
             }}
           >
             <option value="">- Select Make -</option>
-            {Object.keys(formData[formSelections.part] || {}).map((make) => (
+            {options.make.map((make) => (
               <option key={make} value={make}>
                 {capitalizeAfterSpace(
                   make.replace(/_/g, ' ').replace(/-/g, ' ')
@@ -181,9 +224,7 @@ const FormComponent = () => {
           </select>
         </div>
         <div className="col-span-12 mb-4 sm:col-span-6">
-          {Object.keys(
-            formData[formSelections.part]?.[formSelections.make] || {}
-          ).length === 0 ? (
+          {options.model.length === 0 ? (
             <input
               disabled={formSelections.make === ''}
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
@@ -206,19 +247,34 @@ const FormComponent = () => {
               defaultValue=""
               disabled={formSelections.make === ''}
               data-gtm-form-interact-field-id="0"
-              onChange={(e) => {
+              onChange={async (e) => {
                 setFormSelections((prev) => ({
                   ...prev,
                   model: e.target.value,
                   year: '',
                   size: '',
                 }))
+                const data = await fetch(
+                  `/api/formData/${formSelections.part}/${formSelections.make}/${e.target.value}`
+                )
+                const temp = await data.json()
+                if (temp.success) {
+                  setOptions((prev) => ({
+                    ...prev,
+                    year: temp.success,
+                    option: [],
+                  }))
+                } else {
+                  setOptions((prev) => ({
+                    ...prev,
+                    year: [],
+                    option: [],
+                  }))
+                }
               }}
             >
               <option value="">- Select model -</option>
-              {Object.keys(
-                formData[formSelections.part]?.[formSelections.make] || {}
-              ).map((model) => (
+              {options.model.map((model) => (
                 <option key={model} value={model}>
                   {capitalizeAfterSpace(
                     model.replace(/-/g, ' ').replace(/_/g, ' ')
@@ -229,11 +285,7 @@ const FormComponent = () => {
           )}
         </div>
         <div className="col-span-12 mb-4 sm:col-span-6">
-          {Object.keys(
-            formData[formSelections.part]?.[formSelections.make]?.[
-              formSelections.model
-            ] || {}
-          ).length === 0 ? (
+          {options.year.length === 0 ? (
             <input
               disabled={formSelections.model === ''}
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
@@ -253,21 +305,32 @@ const FormComponent = () => {
               disabled={formSelections.model === ''}
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
               required=""
-              onChange={(e) => {
+              onChange={async (e) => {
                 setFormSelections((prev) => ({
                   ...prev,
                   year: e.target.value,
                   size: '',
                 }))
+                const data = await fetch(
+                  `/api/formData/${formSelections.part}/${formSelections.make}/${formSelections.model}/${e.target.value}`
+                )
+                const temp = await data.json()
+                if (temp.success) {
+                  setOptions((prev) => ({
+                    ...prev,
+                    option: temp.success,
+                  }))
+                } else {
+                  setOptions((prev) => ({
+                    ...prev,
+                    option: [],
+                  }))
+                }
               }}
               defaultValue="Not Selected"
             >
               <option value="Not Selected">- Select Engine Year -</option>
-              {Object.keys(
-                formData[formSelections.part]?.[formSelections.make]?.[
-                  formSelections.model
-                ] || {}
-              ).map((year) => (
+              {options.year.map((year) => (
                 <option key={year} value={year}>
                   {year}
                 </option>
@@ -276,11 +339,7 @@ const FormComponent = () => {
           )}
         </div>
         <div className="col-span-12 mb-4 sm:col-span-6">
-          {(
-            formData[formSelections.part]?.[formSelections.make]?.[
-              formSelections.model
-            ]?.[formSelections.year] || []
-          ).length === 0 ? (
+          {options.option.length === 0 ? (
             <input
               disabled={formSelections.year === ''}
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
@@ -307,11 +366,7 @@ const FormComponent = () => {
               defaultValue=""
             >
               <option value="">- Select Option -</option>
-              {(
-                formData[formSelections.part]?.[formSelections.make]?.[
-                  formSelections.model
-                ]?.[formSelections.year] || []
-              ).map((option) => (
+              {['Not Sure', ...options].option.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
