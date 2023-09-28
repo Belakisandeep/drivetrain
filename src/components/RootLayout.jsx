@@ -9,15 +9,11 @@ import {
   useState,
 } from 'react'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { motion, MotionConfig, useReducedMotion } from 'framer-motion'
-
-import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { Footer } from '@/components/Footer'
-import { GridPattern } from '@/components/GridPattern'
-import { Logo, Logomark } from '@/components/Logo'
 import { Offices } from '@/components/Offices'
 import { SocialMedia } from '@/components/SocialMedia'
 
@@ -29,10 +25,9 @@ import Honda from '@/images/clients/logos/16.png'
 import Chevy from '@/images/clients/logos/chevy.png'
 import Ford from '@/images/clients/logos/ford.png'
 import Audi from '@/images/clients/logos/12.png'
-import logo from '@/images/clients/logos/logos.svg'
 import banner from '@/images/landing-banner.webp'
-import { CallToAction, CallToActionLink } from './CallToAction'
-import { ClockIcon, PhoneIcon } from '@heroicons/react/24/outline'
+import ClockIcon from '@heroicons/react/24/outline/ClockIcon'
+import PhoneIcon from '@heroicons/react/24/outline/PhoneIcon'
 import { handleCallClick } from '@/lib/callButton'
 
 const RootLayoutContext = createContext({})

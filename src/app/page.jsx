@@ -1,19 +1,10 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import dynamic from 'next/dynamic'
 
 const ContactSection = dynamic(() =>
   import('@/components/ContactSection').then((module) => module.ContactSection)
 )
 
-// import { ContactSection } from '@/components/ContactSection'
-import { loadMDXMetadata } from '@/lib/loadMDXMetadata'
 import FormComponent from '@/components/Form'
-
-import Return from '@/images/warranty/return.svg'
-import WarrantyImage from '@/images/warranty/warranty.svg'
-import Headphones from '@/images/warranty/headphone.svg'
-import Shipped from '@/images/warranty/shipped.svg'
 
 import NavButton from '@/components/shared/NavButton'
 const Clients = dynamic(() =>
@@ -25,7 +16,6 @@ const Services = dynamic(() =>
 const CaseStudies = dynamic(() =>
   import('@/components/Hero/CaseStudies').then((module) => module.CaseStudies)
 )
-// import dynamic from 'next/dynamic'
 
 export function HeroForm({ type = 'Engine' }) {
   return (
@@ -238,27 +228,13 @@ export const metadata = {
 }
 
 export default async function Home() {
-  let caseStudies = (await loadMDXMetadata('used-engines-for-sale')).slice(0, 3)
 
   return (
     <>
       <HeroForm />
-
       <Clients />
-
-      <CaseStudies caseStudies={caseStudies} />
-
-      {/* <Testimonial
-        className="mt-24 sm:mt-32 lg:mt-40"
-        client={{ name: 'Phobia', logo: logoPhobiaDark }}
-      >
-        The team at Studio went above and beyond with our onboarding, even
-        finding a way to access the user’s microphone without triggering one of
-        those annoying permission dialogs.
-      </Testimonial> */}
-
+      <CaseStudies />
       <Services />
-
       <ContactSection />
     </>
   )
