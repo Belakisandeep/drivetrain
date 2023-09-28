@@ -366,7 +366,7 @@ const FormComponent = () => {
               defaultValue=""
             >
               <option value="">- Select Option -</option>
-              {['Not Sure', ...options].option.map((option) => (
+              {['Not Sure', ...options.option].map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
