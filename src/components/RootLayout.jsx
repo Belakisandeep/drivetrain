@@ -30,7 +30,7 @@ import ClockIcon from '@heroicons/react/24/outline/ClockIcon'
 import PhoneIcon from '@heroicons/react/24/outline/PhoneIcon'
 import { handleCallClick } from '@/lib/callButton'
 
-const RootLayoutContext = createContext({})
+export const RootLayoutContext = createContext({})
 
 function XIcon(props) {
   return (
@@ -493,9 +493,39 @@ function RootLayoutInner({ children }) {
 export function RootLayout({ children }) {
   let pathname = usePathname()
   let [logoHovered, setLogoHovered] = useState(false)
+  const [formSelections, setFormSelections] = useState({
+    part: '',
+    make: '',
+    model: '',
+    year: '',
+    size: '',
+  })
+  const [options, setOptions] = useState({
+    part: ['Engine', 'Transmission'],
+    make: [],
+    model: [],
+    year: [],
+    option: [],
+  })
+  const [formDataLoc, setFormData] = useState({
+    name: '',
+    mobile: '',
+    email: '',
+  })
 
   return (
-    <RootLayoutContext.Provider value={{ logoHovered, setLogoHovered }}>
+    <RootLayoutContext.Provider
+      value={{
+        logoHovered,
+        setLogoHovered,
+        formSelections,
+        setFormSelections,
+        options,
+        setOptions,
+        formDataLoc,
+        setFormData,
+      }}
+    >
       <RootLayoutInner key={pathname}>{children}</RootLayoutInner>
     </RootLayoutContext.Provider>
   )

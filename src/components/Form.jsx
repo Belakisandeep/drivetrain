@@ -1,17 +1,20 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { RootLayoutContext } from './RootLayout'
 
 const FormComponent = () => {
   const router = useRouter()
-  const [formSelections, setFormSelections] = useState({
-    part: '',
-    make: '',
-    model: '',
-    year: '',
-    size: '',
-  })
+
+  let {
+    formSelections,
+    setFormSelections,
+    options,
+    setOptions,
+    formDataLoc,
+    setFormData,
+  } = useContext(RootLayoutContext)
 
   function capitalizeAfterSpace(input) {
     return input.replace(
@@ -20,22 +23,9 @@ const FormComponent = () => {
     )
   }
 
-  const [formDataLoc, setFormData] = useState({
-    name: '',
-    mobile: '',
-    email: '',
-  })
-
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
   const [query, setQuery] = useState('/api/formData')
-  const [options, setOptions] = useState({
-    part: ['Engine', 'Transmission'],
-    make: [],
-    model: [],
-    year: [],
-    option: [],
-  })
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -136,7 +126,8 @@ const FormComponent = () => {
             id="id_part"
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
             required=""
-            defaultValue=""
+            defaultValue={formSelections.part}
+            value={formSelections.part}
             onChange={async (e) => {
               setFormSelections((prev) => ({
                 ...prev,
@@ -181,7 +172,8 @@ const FormComponent = () => {
             id="id_make"
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
             required=""
-            defaultValue=""
+            defaultValue={formSelections.make}
+            value={formSelections.make}
             disabled={formSelections.part === ''}
             data-gtm-form-interact-field-id="0"
             onChange={async (e) => {
@@ -227,6 +219,8 @@ const FormComponent = () => {
           {options.model.length === 0 ? (
             <input
               disabled={formSelections.make === ''}
+              defaultValue={formSelections.model}
+              value={formSelections.model}
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
               onChange={(e) => {
                 setFormSelections((prev) => ({
@@ -244,7 +238,8 @@ const FormComponent = () => {
               id="id_model"
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
               required=""
-              defaultValue=""
+              defaultValue={formSelections.model}
+              value={formSelections.model}
               disabled={formSelections.make === ''}
               data-gtm-form-interact-field-id="0"
               onChange={async (e) => {
@@ -288,6 +283,8 @@ const FormComponent = () => {
           {options.year.length === 0 ? (
             <input
               disabled={formSelections.model === ''}
+              defaultValue={formSelections.year}
+              value={formSelections.year}
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
               onChange={(e) => {
                 setFormSelections((prev) => ({
@@ -301,6 +298,8 @@ const FormComponent = () => {
           ) : (
             <select
               name="year"
+              defaultValue={formSelections.year}
+              value={formSelections.year}
               id="id_year"
               disabled={formSelections.model === ''}
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
@@ -327,7 +326,6 @@ const FormComponent = () => {
                   }))
                 }
               }}
-              defaultValue="Not Selected"
             >
               <option value="Not Selected">- Select Engine Year -</option>
               {options.year.map((year) => (
@@ -341,6 +339,8 @@ const FormComponent = () => {
         <div className="col-span-12 mb-4 sm:col-span-6">
           {options.option.length === 0 ? (
             <input
+              defaultValue={formSelections.size}
+              value={formSelections.size}
               disabled={formSelections.year === ''}
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
               onChange={(e) => {
@@ -355,6 +355,8 @@ const FormComponent = () => {
             <select
               name="size"
               id="id_size"
+              defaultValue={formSelections.size}
+              value={formSelections.size}
               disabled={formSelections.year === ''}
               onChange={(e) => {
                 setFormSelections((prev) => ({
@@ -363,7 +365,6 @@ const FormComponent = () => {
                 }))
               }}
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
-              defaultValue=""
             >
               <option value="">- Select Option -</option>
               {['Not Sure', ...options.option].map((option) => (
