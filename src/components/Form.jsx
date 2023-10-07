@@ -382,7 +382,7 @@ const FormComponent = () => {
             type="email"
             name="email"
             required
-            placeholder="Email"
+            placeholder="Email (Get quote via Mail)"
             value={formDataLoc.email}
             onChange={handleChange}
           />
@@ -396,7 +396,7 @@ const FormComponent = () => {
             required
             value={formDataLoc.number}
             onChange={handleChange}
-            placeholder="Phone Number"
+            placeholder="Phone Number (Get quote via Text)"
           />
           {errors.number && (
             <p className="pl-2 text-xs text-red-600">{errors.number}</p>

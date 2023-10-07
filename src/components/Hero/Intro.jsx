@@ -1,4 +1,4 @@
-import { FadeIn } from "../FadeIn";
+import { FadeIn } from '../FadeIn'
 import clsx from 'clsx'
 
 export function Intro({
@@ -12,32 +12,32 @@ export function Intro({
   return (
     // <Container {...props}>
     <FadeIn className="w-full">
-      <h2>
+      <span>
         {eyebrow && (
           <>
-            <span
+            <h1
               className={clsx(
                 'mb-6 block  text-base font-semibold',
                 invert ? 'text-white' : 'text-orange-400'
               )}
             >
               {eyebrow}
-            </span>
+            </h1>
             <span className="sr-only"> - </span>
           </>
         )}
-        <span
+        <h2
           className={clsx(
             'block  tracking-tight [text-wrap:balance]',
             smaller
               ? 'font-semibold sm:text-2xl'
-              : 'text-base font-medium sm:text-5xl',
-            invert ? 'text-white' : 'text-orange-400'
+              : 'text-base font-lighter sm:text-3xl',
+            invert ? 'text-white' : 'text-neutral-600'
           )}
         >
           {title}
-        </span>
-      </h2>
+        </h2>
+      </span>
       {children && (
         <div
           className={clsx(
