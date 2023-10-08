@@ -31,7 +31,7 @@ const FormComponent = () => {
     const { name, value } = e.target
     if (
       (name === 'number' && parseInt(value) <= 9999999999) ||
-      (name === 'number' && value === '' && value !== '-')
+      (name === 'number' && value === '')
     ) {
       setFormData((prevData) => ({ ...prevData, [name]: value }))
     } else if (name !== 'number') {
@@ -394,9 +394,9 @@ const FormComponent = () => {
             type="number"
             name="number"
             required
-            onKeyDown={(evt) =>
-              ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-            }
+            onKeyDown={(evt) => {
+              ('0123456789'.indexOf(evt.key) < 0 && !["ArrowLeft", "Backspace", "ArrowRight", "Delete"].includes(evt.key)) && evt.preventDefault()
+            }}
             value={formDataLoc.number}
             onChange={handleChange}
             placeholder="Phone Number (Get quote via Text)"
