@@ -394,6 +394,9 @@ const FormComponent = () => {
             type="number"
             name="number"
             required
+            onKeyDown={(evt) =>
+              ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
+            }
             value={formDataLoc.number}
             onChange={handleChange}
             placeholder="Phone Number (Get quote via Text)"
