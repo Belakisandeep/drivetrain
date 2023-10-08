@@ -110,6 +110,129 @@ const FormComponent = () => {
 
   return (
     <div className="mx-auto w-full max-w-xl">
+      <p className="pt-2 font-display font-medium mx-4 text-black sm:hidden sm:text-orange-950 ">
+        What do we offer :
+      </p>
+      <ul className="flex flex-wrap gap-1 sm:hidden mx-4">
+        <li className="flex w-full items-center rounded-lg border border-gray-300 px-4 py-1 shadow-md md:w-1/2 lg:w-1/3">
+          <div className="mr-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+          <div>
+            <span className="text-sm font-semibold">
+              Get Free Quote In 30 Seconds.
+            </span>
+            {/* Add additional information here if needed */}
+          </div>
+        </li>
+        <li className="flex w-full items-center rounded-lg border border-gray-300 px-4 py-1 shadow-md md:w-1/2 lg:w-1/3">
+          <div className="mr-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+          <div>
+            <span className="text-sm font-semibold">
+              Free Shipping All Over the Nation In 2-4 Days.
+            </span>
+            {/* Add additional information here if needed */}
+          </div>
+        </li>
+        <li className="flex w-full items-center rounded-lg border border-gray-300 px-4 py-1 shadow-md md:w-1/2 lg:w-1/3">
+          <div className="mr-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+          <div>
+            <span className="text-sm font-semibold">
+              90 Days Easy Return. NO Question Asked
+            </span>
+            {/* Add additional information here if needed */}
+          </div>
+        </li>
+        <li className="flex w-full items-center rounded-lg border border-gray-300 px-4 py-1 shadow-md md:w-1/2 lg:w-1/3">
+          <div className="mr-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+          <div>
+            <span className="text-sm font-semibold">5 Years Of Warranty.</span>
+            {/* Add additional information here if needed */}
+          </div>
+        </li>
+        <li className="flex w-full items-center rounded-lg border border-gray-300 px-4 py-1 shadow-md md:w-1/2 lg:w-1/3">
+          <div className="mr-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+          <div>
+            <span className="text-sm font-semibold">
+              OEM Parts - 100% Guaranteed
+            </span>
+            {/* Add additional information here if needed */}
+          </div>
+        </li>
+      </ul>
       <form
         id="quote-form"
         onSubmit={handleSubmit}
@@ -395,7 +518,11 @@ const FormComponent = () => {
             name="number"
             required
             onKeyDown={(evt) => {
-              ('0123456789'.indexOf(evt.keyCode) < 0 && !["ArrowLeft", "Backspace", "ArrowRight", "Delete"].includes(evt.keyCode)) && evt.preventDefault()
+              '0123456789'.indexOf(evt.key) < 0 &&
+                !['ArrowLeft', 'Backspace', 'ArrowRight', 'Delete'].includes(
+                  evt.key
+                ) &&
+                evt.preventDefault()
             }}
             value={formDataLoc.number}
             onChange={handleChange}
