@@ -395,7 +395,7 @@ const FormComponent = () => {
             name="number"
             required
             onKeyDown={(evt) => {
-              ('0123456789'.indexOf(evt.key) < 0 && !["ArrowLeft", "Backspace", "ArrowRight", "Delete"].includes(evt.key)) && evt.preventDefault()
+              ('0123456789'.indexOf(evt.keyCode) < 0 && !["ArrowLeft", "Backspace", "ArrowRight", "Delete"].includes(evt.keyCode)) && evt.preventDefault()
             }}
             value={formDataLoc.number}
             onChange={handleChange}
