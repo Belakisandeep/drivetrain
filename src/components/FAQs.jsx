@@ -30,7 +30,7 @@ const faqs = [
 export default function FAQ() {
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 pt-20">
         <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
           <h1 className="text-2xl font-bold leading-10 tracking-tight text-gray-900">
             Frequently asked questions
