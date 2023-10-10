@@ -66,7 +66,7 @@ _paq.push(['trackAllContentImpressions']);
   s.parentNode.insertBefore(script, s);`}
         </Script>
 
-        <Script id="bing" strategy="afterInteractive">
+        <Script id="bing" strategy="beforeInteractive">
           {`(function(w,d,t,r,u)
           {
               var f,n,i;
@@ -85,7 +85,7 @@ _paq.push(['trackAllContentImpressions']);
           (window,document,"script","//bat.bing.com/bat.js","uetq");`}
         </Script>
 
-        <Script id="gt" strategy="afterInteractive">
+        <Script id="gt" strategy="beforeInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
