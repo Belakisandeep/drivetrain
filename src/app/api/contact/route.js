@@ -7,13 +7,9 @@ export async function POST(request) {
         await transporter.sendMail({
             ...mailOptions,
             subject: `Enquiry from ${data.Phone}`,
-            text: `${data.Name} is looking for ${data?.Make} ${data?.Model} ${data?.Size} ${data?.Part}`,
+            text: `${data.Phone} is looking for ${data?.Make} ${data?.Model} ${data?.Part}`,
             html: `<table style="border: 1px solid black;">
             <tbody>
-              <tr style="background-color: #e3e3e3;">
-                <td style="padding: 5px; border: 1px solid black;">Name:</td>
-                <td style="padding: 5px; border: 1px solid black;">${data?.Name}</td>
-              </tr>
               <tr>
                 <td style="padding: 5px; border: 1px solid black;">Phone Number:</td>
                 <td style="padding: 5px; border: 1px solid black;">${data.Phone}</td>
@@ -29,10 +25,6 @@ export async function POST(request) {
               <tr style="background-color: #e3e3e3;">
                 <td style="padding: 5px; border: 1px solid black;">Year:</td>
                 <td style="padding: 5px; border: 1px solid black;">${data?.Year}</td>
-              </tr>
-              <tr>
-                <td style="padding: 5px; border: 1px solid black;">Size:</td>
-                <td style="padding: 5px; border: 1px solid black;">${data?.Size}</td>
               </tr>
               <tr style="background-color: #e3e3e3;">
                 <td style="padding: 5px; border: 1px solid black;">Part:</td>

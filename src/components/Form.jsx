@@ -53,11 +53,11 @@ const FormComponent = () => {
         Year: formSelections.year,
         Make: formSelections.make,
         Model: formSelections.model,
-        Size: formSelections.size,
+        // Size: formSelections.size,
         Part: formSelections.part,
-        Name: formDataLoc.name,
+        // Name: formDataLoc.name,
         Phone: formDataLoc.number,
-        Email: formDataLoc.email,
+        // Email: formDataLoc.email,
         _id,
       }
       const mail = await fetch('/api/contact', {
@@ -92,19 +92,19 @@ const FormComponent = () => {
 
   const validateForm = (data) => {
     const errors = {}
-    if (!data.name) {
-      errors.name = 'Name is required'
-    }
+    // if (!data.name) {
+    //   errors.name = 'Name is required'
+    // }
     if (!data.number) {
       errors.number = 'Mobile number is required'
     } else if (!/^\d{10}$/.test(data.number)) {
       errors.number = 'Mobile number should be 10 digits'
     }
-    if (!data.email) {
-      errors.email = 'Email is required'
-    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
-      errors.email = 'Please provide valid email'
-    }
+    // if (!data.email) {
+    //   errors.email = 'Email is required'
+    // } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+    //   errors.email = 'Please provide valid email'
+    // }
     return errors
   }
 
@@ -243,7 +243,7 @@ const FormComponent = () => {
             Find your <span className="text-orange-400"> Car Part</span>
           </p>
         </div>
-        <div className="col-span-12 mb-4 sm:col-span-6">
+        <div className="col-span-12 mb-4 sm:col-span-12">
           <select
             name="part"
             id="id_part"
@@ -289,7 +289,7 @@ const FormComponent = () => {
             ))}
           </select>
         </div>
-        <div className="col-span-12 mb-4 sm:col-span-6">
+        <div className="col-span-12 mb-4 sm:col-span-12">
           <select
             name="make"
             id="id_make"
@@ -338,7 +338,7 @@ const FormComponent = () => {
             ))}
           </select>
         </div>
-        <div className="col-span-12 mb-4 sm:col-span-6">
+        <div className="col-span-12 mb-4 sm:col-span-12">
           {options.model.length === 0 ? (
             <input
               disabled={formSelections.make === ''}
@@ -402,7 +402,7 @@ const FormComponent = () => {
             </select>
           )}
         </div>
-        <div className="col-span-12 mb-4 sm:col-span-6">
+        <div className="col-span-12 mb-4 sm:col-span-12">
           {options.year.length === 0 ? (
             <input
               disabled={formSelections.model === ''}
@@ -459,7 +459,7 @@ const FormComponent = () => {
             </select>
           )}
         </div>
-        <div className="col-span-12 mb-4 sm:col-span-6">
+        {/* <div className="col-span-12 mb-4 sm:col-span-12">
           {options.option.length === 0 ? (
             <input
               defaultValue={formSelections.size}
@@ -497,8 +497,8 @@ const FormComponent = () => {
               ))}
             </select>
           )}
-        </div>
-        <div className="col-span-12 mb-4 sm:col-span-6">
+        </div> */}
+        {/* <div className="col-span-12 mb-4 sm:col-span-12">
           <input
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
             id="email"
@@ -509,8 +509,8 @@ const FormComponent = () => {
             value={formDataLoc.email}
             onChange={handleChange}
           />
-        </div>
-        <div className="col-span-12 mb-4 sm:col-span-6">
+        </div> */}
+        <div className="col-span-12 mb-4 sm:col-span-12">
           <input
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
             id="number"
@@ -532,7 +532,7 @@ const FormComponent = () => {
             <p className="pl-2 text-xs text-red-600">{errors.number}</p>
           )}
         </div>
-        <div className="col-span-12 mb-4 sm:col-span-6">
+        {/* <div className="col-span-12 mb-4 sm:col-span-12">
           <input
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
             id="name"
@@ -543,7 +543,7 @@ const FormComponent = () => {
             value={formDataLoc.name}
             onChange={handleChange}
           />
-        </div>
+        </div> */}
         <div className="col-span-12 flex items-center justify-between">
           <button
             // onClick={() => {
