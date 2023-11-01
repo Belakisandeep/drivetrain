@@ -14,6 +14,15 @@ export default function Layout({ children }) {
   return (
     <html lang="en" className="h-full bg-orange-400 text-base antialiased">
       <head>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-4S12NLEH3G"></Script>
+        <Script id="GTM" strategy="beforeInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-4S12NLEH3G');`}
+        </Script>
+
         <Script id="BDB_BASE_FILE" strategy="beforeInteractive">
           {`
 var _paq = (window._paq = window._paq || []);
