@@ -161,7 +161,7 @@ const EngineForm = ({ part = 'Part' }) => {
             name="make"
             id="id_make"
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
-            required=""
+            required
             defaultValue={formSelections.make}
             value={formSelections.make}
             disabled={formSelections.part === ''}
@@ -227,7 +227,7 @@ const EngineForm = ({ part = 'Part' }) => {
               name="model"
               id="id_model"
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
-              required=""
+              required
               defaultValue={formSelections.model}
               value={formSelections.model}
               disabled={formSelections.make === ''}
@@ -293,7 +293,7 @@ const EngineForm = ({ part = 'Part' }) => {
               id="id_year"
               disabled={formSelections.model === ''}
               className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
-              required=""
+              required
               onChange={async (e) => {
                 setFormSelections((prev) => ({
                   ...prev,
@@ -331,7 +331,7 @@ const EngineForm = ({ part = 'Part' }) => {
             name="part"
             id="id_part"
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
-            required=""
+            required
             defaultValue={
               formSelections.part === '' ? 'Engine' : formSelections.part
             }
