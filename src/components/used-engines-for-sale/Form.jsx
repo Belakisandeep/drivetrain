@@ -1,10 +1,17 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useContext, useState } from 'react'
-import { RootLayoutContext } from './RootLayout'
+import { useContext, useEffect, useState } from 'react'
+import { RootLayoutContext } from '@/components/RootLayout'
 
-const FormComponent = ({ part = 'Part' }) => {
+export function capitalizeAfterSpace(input) {
+  return input.replace(
+    /(?:^|\s)([a-z])/g,
+    (_, match) => ` ${match.toUpperCase()}`
+  )
+}
+
+const EngineForm = ({ part = 'Part' }) => {
   const router = useRouter()
 
   let {
@@ -15,13 +22,6 @@ const FormComponent = ({ part = 'Part' }) => {
     formDataLoc,
     setFormData,
   } = useContext(RootLayoutContext)
-
-  function capitalizeAfterSpace(input) {
-    return input.replace(
-      /(?:^|\s)([a-z])/g,
-      (_, match) => ` ${match.toUpperCase()}`
-    )
-  }
 
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
@@ -108,186 +108,53 @@ const FormComponent = ({ part = 'Part' }) => {
     return errors
   }
 
+  const setter = async () => {
+    setFormSelections((prev) => ({
+      ...prev,
+      part: 'Engine',
+      make: '',
+      model: '',
+      year: '',
+      size: '',
+    }))
+    const data = await fetch(`/api/formData/Engine`)
+    const temp = await data.json()
+    if (temp.success) {
+      setOptions((prev) => ({
+        ...prev,
+        make: temp.success,
+        model: [],
+        year: [],
+        option: [],
+      }))
+    } else {
+      setOptions((prev) => ({
+        ...prev,
+        make: [],
+        model: [],
+        year: [],
+        option: [],
+      }))
+    }
+  }
+
+  useEffect(() => {
+    if (formSelections.part === '') {
+      setter()
+    }
+  }, [formSelections.part])
+
   return (
-    <div className="mx-auto w-full max-w-xl">
-      <p className="mx-4 pt-2 font-display font-medium text-black sm:hidden sm:text-orange-950 ">
-        What do we offer :
-      </p>
-      <ul className="mx-4 flex flex-wrap gap-1 sm:hidden">
-        <li className="flex w-full items-center rounded-lg border border-gray-300 px-4 py-1 shadow-md md:w-1/2 lg:w-1/3">
-          <div className="mr-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </div>
-          <div>
-            <span className="text-sm font-semibold">
-              Get Free Quote In 30 Seconds.
-            </span>
-            {/* Add additional information here if needed */}
-          </div>
-        </li>
-        <li className="flex w-full items-center rounded-lg border border-gray-300 px-4 py-1 shadow-md md:w-1/2 lg:w-1/3">
-          <div className="mr-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </div>
-          <div>
-            <span className="text-sm font-semibold">
-              Free Shipping All Over the Nation In 2-4 Days.
-            </span>
-            {/* Add additional information here if needed */}
-          </div>
-        </li>
-        <li className="flex w-full items-center rounded-lg border border-gray-300 px-4 py-1 shadow-md md:w-1/2 lg:w-1/3">
-          <div className="mr-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </div>
-          <div>
-            <span className="text-sm font-semibold">
-              90 Days Easy Return. NO Question Asked
-            </span>
-            {/* Add additional information here if needed */}
-          </div>
-        </li>
-        <li className="flex w-full items-center rounded-lg border border-gray-300 px-4 py-1 shadow-md md:w-1/2 lg:w-1/3">
-          <div className="mr-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </div>
-          <div>
-            <span className="text-sm font-semibold">5 Years Of Warranty.</span>
-            {/* Add additional information here if needed */}
-          </div>
-        </li>
-        <li className="flex w-full items-center rounded-lg border border-gray-300 px-4 py-1 shadow-md md:w-1/2 lg:w-1/3">
-          <div className="mr-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </div>
-          <div>
-            <span className="text-sm font-semibold">
-              OEM Parts - 100% Guaranteed
-            </span>
-            {/* Add additional information here if needed */}
-          </div>
-        </li>
-      </ul>
+    <div id="top" className="mx-auto w-full max-w-xl">
       <form
         id="quote-form"
         onSubmit={handleSubmit}
-        className="mb-4 grid grid-cols-12 gap-1 rounded bg-white px-8 pb-8 pt-6 shadow-md sm:min-w-[450px] sm:gap-4"
+        className="mb-4 grid grid-cols-12 gap-1 rounded bg-white px-8 pb-8 pt-6 shadow-[0_8px_30px_rgb(0,0,0,0.12)] sm:min-w-[450px] sm:gap-4"
       >
-        <div className="col-span-12">
-          <p className="mt-2 text-neutral-600">
-            Find your <span className="text-orange-400"> Car {part}</span>
-          </p>
-        </div>
-        <div className="col-span-12 mb-4 sm:col-span-12">
-          <select
-            name="part"
-            id="id_part"
-            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
-            required=""
-            defaultValue={formSelections.part}
-            value={formSelections.part}
-            onChange={async (e) => {
-              setFormSelections((prev) => ({
-                ...prev,
-                part: e.target.value,
-                make: '',
-                model: '',
-                year: '',
-                size: '',
-              }))
-              const data = await fetch(`/api/formData/${e.target.value}`)
-              const temp = await data.json()
-              if (temp.success) {
-                setOptions((prev) => ({
-                  ...prev,
-                  make: temp.success,
-                  model: [],
-                  year: [],
-                  option: [],
-                }))
-              } else {
-                setOptions((prev) => ({
-                  ...prev,
-                  make: [],
-                  model: [],
-                  year: [],
-                  option: [],
-                }))
-              }
-            }}
-          >
-            <option value="">- Select Part -</option>
-            {options.part.map((part) => (
-              <option key={part} value={part}>
-                {part}
-              </option>
-            ))}
-          </select>
+        <div className="col-span-12 text-center">
+          <h1 className="mx-auto mt-2 text-2xl font-bold text-neutral-600">
+            Find my Engine
+          </h1>
         </div>
         <div className="col-span-12 mb-4 sm:col-span-12">
           <select
@@ -459,57 +326,54 @@ const FormComponent = ({ part = 'Part' }) => {
             </select>
           )}
         </div>
-        {/* <div className="col-span-12 mb-4 sm:col-span-12">
-          {options.option.length === 0 ? (
-            <input
-              defaultValue={formSelections.size}
-              value={formSelections.size}
-              disabled={formSelections.year === ''}
-              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
-              onChange={(e) => {
-                setFormSelections((prev) => ({
-                  ...prev,
-                  size: e.target.value,
-                }))
-              }}
-              placeholder="Select Option"
-            />
-          ) : (
-            <select
-              name="size"
-              id="id_size"
-              defaultValue={formSelections.size}
-              value={formSelections.size}
-              disabled={formSelections.year === ''}
-              onChange={(e) => {
-                setFormSelections((prev) => ({
-                  ...prev,
-                  size: e.target.value,
-                }))
-              }}
-              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
-            >
-              <option value="">- Select Option -</option>
-              {['Not Sure', ...options.option].map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          )}
-        </div> */}
-        {/* <div className="col-span-12 mb-4 sm:col-span-12">
-          <input
+        <div className="col-span-12 mb-4 sm:col-span-12">
+          <select
+            name="part"
+            id="id_part"
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
-            id="email"
-            type="email"
-            name="email"
-            required
-            placeholder="Email (Get quote via Mail)"
-            value={formDataLoc.email}
-            onChange={handleChange}
-          />
-        </div> */}
+            required=""
+            defaultValue={
+              formSelections.part === '' ? 'Engine' : formSelections.part
+            }
+            value={formSelections.part === '' ? 'Engine' : formSelections.part}
+            onChange={async (e) => {
+              setFormSelections((prev) => ({
+                ...prev,
+                part: e.target.value,
+                make: '',
+                model: '',
+                year: '',
+                size: '',
+              }))
+              const data = await fetch(`/api/formData/${e.target.value}`)
+              const temp = await data.json()
+              if (temp.success) {
+                setOptions((prev) => ({
+                  ...prev,
+                  make: temp.success,
+                  model: [],
+                  year: [],
+                  option: [],
+                }))
+              } else {
+                setOptions((prev) => ({
+                  ...prev,
+                  make: [],
+                  model: [],
+                  year: [],
+                  option: [],
+                }))
+              }
+            }}
+          >
+            <option value="">- Select Part -</option>
+            {options.part.map((part) => (
+              <option key={part} value={part}>
+                {part}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="col-span-12 mb-4 sm:col-span-12">
           <input
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
@@ -534,7 +398,7 @@ const FormComponent = ({ part = 'Part' }) => {
         </div>
         {/* <div className="col-span-12 mb-4 sm:col-span-12">
           <input
-            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
+            className="focus:shadow-outline appearance-none w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
             id="name"
             name="name"
             type="text"
@@ -573,7 +437,7 @@ const FormComponent = ({ part = 'Part' }) => {
             //   formSelections.year === ''
             // }
 
-            className="focus:shadow-outline flex max-h-20 w-full items-center justify-around rounded bg-orange-400 px-4 py-2 text-center font-bold text-white hover:bg-orange-700 focus:outline-none"
+            className="focus:shadow-outline flex max-h-20 w-full appearance-none items-center justify-around rounded bg-orange-400 px-4 py-2 text-center font-bold text-white hover:bg-orange-700 focus:outline-none"
             type="submit"
           >
             {loading ? (
@@ -598,7 +462,7 @@ const FormComponent = ({ part = 'Part' }) => {
                 ></path>
               </svg>
             ) : (
-              'Search'
+              'Check Availability'
             )}
           </button>
         </div>
@@ -607,4 +471,4 @@ const FormComponent = ({ part = 'Part' }) => {
   )
 }
 
-export default FormComponent
+export default EngineForm

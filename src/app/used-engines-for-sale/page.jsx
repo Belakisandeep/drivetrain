@@ -28,6 +28,13 @@ import WarrantyImage from '@/images/warranty/warranty.svg'
 import Headphones from '@/images/warranty/headphone.svg'
 import Shipped from '@/images/warranty/shipped.svg'
 import NavButton from '@/components/shared/NavButton'
+import EngineForm from '@/components/used-engines-for-sale/Form'
+import Engine from '@/images/engines/used-engine.png'
+import Iterator from '@/components/used-engines-for-sale/Iterator'
+import engine1 from '@/images/engines/engine-1.png'
+import engine2 from '@/images/engines/engine-2.png'
+import engine3 from '@/images/engines/engine-3.png'
+import engine4 from '@/images/engines/engine-4.png'
 
 function CaseStudies({ caseStudies }) {
   return (
@@ -47,7 +54,7 @@ function CaseStudies({ caseStudies }) {
                     <Image
                       src={caseStudy.logo}
                       alt=""
-                      className="h-16 w-16 mx-auto sm:mx-0 flex-none"
+                      className="mx-auto h-16 w-16 flex-none sm:mx-0"
                       unoptimized
                     />
                     <h3 className="mt-6 text-sm font-semibold text-orange-400 sm:mt-0 lg:mt-8">
@@ -146,11 +153,25 @@ export default async function Work() {
 
   return (
     <>
-      <Container formContainer={true} className="mt-12 sm:mt-40">
+      <Container className="mt-12 sm:mt-28">
         <FadeIn className="flex-column items-center justify-between pt-4 sm:flex md:pt-0">
-          <FormComponent part='Engine' />
-          <div className="mx-auto max-w-xl px-2 sm:px-0 sm:pl-16">
-            <h1 className="hidden font-display text-2xl font-semibold tracking-tight text-orange-400 [text-wrap:balance] sm:text-3xl sm:text-orange-950 md:block">
+          <div className="mx-auto max-w-xl px-2 py-10 sm:px-0 sm:pl-16">
+            <div className="block sm:hidden text-center">
+              <h1 className="text-3xl font-semibold">
+                Find my Engine & Transmission
+              </h1>
+              <p className="font-light">
+                Simply find your Engine or Transmission and Receive price quotes
+                from the best suppliers across US
+              </p>
+              <NavButton />
+            </div>
+            <Image
+              src={Engine}
+              alt="engine"
+              className="hidden h-96 w-96 sm:block"
+            />
+            {/* <h1 className="hidden font-display text-2xl font-semibold tracking-tight text-orange-400 [text-wrap:balance] sm:text-3xl sm:text-orange-950 md:block">
               Buy an &quot;A&quot; grade used engine that comes with 3-5 Years
               warranty.
             </h1>
@@ -217,12 +238,141 @@ export default async function Work() {
             <div className="mt-4 text-2xl">
               <span className="text-black">Speak with our specialist.</span>
               <NavButton />
-            </div>
+            </div> */}
           </div>
+          <EngineForm part="Engine" />
         </FadeIn>
       </Container>
-      <CaseStudies caseStudies={caseStudies} />
-      <FAQ />
+      <div className="bg-gray-200">
+        <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+          <div className="grid grid-cols-12 gap-4">
+            <div className="col-span-12 text-center">
+              <h2 className="text-3xl font-semibold">
+                3 STEP <span className="text-orange-400">HASSLE-FREE</span>{' '}
+                PROCESS
+              </h2>
+            </div>
+            <div className="col-span-12 p-4 text-center sm:col-span-4">
+              <p className="text-7xl font-bold text-orange-400">1</p>
+              <p className="text-xl font-semibold">Submit the Form</p>
+            </div>
+            <div className="col-span-12 p-4 text-center sm:col-span-4">
+              <p className="text-7xl font-bold text-orange-400">2</p>
+              <p className="text-xl font-semibold">Receive Price Quotes</p>
+            </div>
+            <div className="col-span-12 p-4 text-center sm:col-span-4">
+              <p className="text-7xl font-bold text-orange-400">3</p>
+              <p className="text-xl font-semibold">Choose the Best</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+          <div className="grid grid-cols-12 gap-1">
+            <div className="col-span-12 text-center">
+              <h3 className="text-3xl font-semibold">
+                TOP SELLING USED ENGINES
+              </h3>
+              <p className="font-light">
+                Our top-selling used engines from US and Canada
+              </p>
+            </div>
+            <div className="col-span-12 p-4 text-center sm:col-span-3">
+              <div className="w-full p-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                <Image src={engine1} alt="engine" className="h-auto w-full" />
+                <div className="text-center">
+                  <p className="pb-3 text-xl">
+                    <span className="font-bold">Ford</span> Used Engine
+                  </p>
+                  <p>Top Quality</p>
+                  <p>Competitive Prices</p>
+                  <p>Free Shipping</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-12 p-4 text-center sm:col-span-3">
+              <div className="w-full p-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                <Image src={engine2} alt="engine" className="h-auto w-full" />
+                <div className="text-center">
+                  <p className="pb-3 text-xl">
+                    <span className="font-bold">Toyota</span> Used Engine
+                  </p>
+                  <p>Top Quality</p>
+                  <p>Competitive Prices</p>
+                  <p>Free Shipping</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-12 p-4 text-center sm:col-span-3">
+              <div className="w-full p-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                <Image src={engine3} alt="engine" className="h-auto w-full" />
+                <div className="text-center">
+                  <p className="pb-3 text-xl">
+                    <span className="font-bold">Kia</span> Used Engine
+                  </p>
+                  <p>Top Quality</p>
+                  <p>Competitive Prices</p>
+                  <p>Free Shipping</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-12 p-4 text-center sm:col-span-3">
+              <div className="w-full p-4 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                <Image src={engine4} alt="engine" className="h-auto w-full" />
+                <div className="text-center">
+                  <p className="pb-3 text-xl">
+                    <span className="font-bold">Audi</span> Used Engine
+                  </p>
+                  <p>Top Quality</p>
+                  <p>Competitive Prices</p>
+                  <p>Free Shipping</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+          <div className="grid grid-cols-12 gap-4">
+            <div className="col-span-12 text-center">
+              <h3 className="text-3xl font-semibold">WHAT WE OFFER?</h3>
+            </div>
+            <div className="col-span-12 p-1">
+              <p className="text-xl font-light">
+                We are offering free quote on Used and Rebuilt Engines from
+                suppliers across US and Canada that are tested thoroughly before
+                delivered. We specialize in getting you the best price for all
+                makes and models both American made and import engines. Whether
+                you need an Engine for you car, truck, SUV or motorcycle we have
+                you covered.
+              </p>
+            </div>
+            <div className="col-span-12 p-1">
+              <p className="text-xl font-light">
+                The process is very simple. You fill the form or call us on the
+                number +1-888-855-1808. We will collect best quotes for you
+                based on the make, model and year from our suppliers. Choose the
+                best quote and make the purchase to complete your order.
+              </p>
+            </div>
+            <div className="col-span-12 p-1">
+              <p className="text-xl font-light">
+                Here is a list of all the major brands we support:
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Iterator />
+      <footer className="bg-gray-200 p-4 text-center">
+        <p className="text-sm text-gray-600">
+          &copy; 2023 Engines and Drivetrain
+        </p>
+      </footer>
+      {/* <CaseStudies caseStudies={caseStudies} /> */}
+      {/* <FAQ /> */}
       {/* <Testimonial
         className="mt-24 sm:mt-32 lg:mt-40"
         client={{ name: 'Mail Smirk', logo: logoMailSmirk }}
@@ -239,7 +389,7 @@ export default async function Work() {
         is incorporated below.
       </Testimonial> */}
       {/* <Clients /> */}
-      <ContactSection />
+      {/* <ContactSection /> */}
     </>
   )
 }

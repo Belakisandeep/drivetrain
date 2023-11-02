@@ -116,16 +116,18 @@ function Header({
               {/* <Image className="w-full" src={logo} alt="logo" unoptimized /> */}
             </div>
           </Link>
-          <div className="hidden items-center sm:flex">
-            <ClockIcon className="h-8 text-orange-400" />
-            <div className="ml-2 text-sm font-semibold text-orange-400">
-              <p className="text-black">
-                Monday - Friday 9:00am-8:00pm EST
-                <br />
-                Saturday 11:00am-4:00pm EST
-              </p>
+          {pathName !== '/used-engines-for-sale' && (
+            <div className="hidden items-center sm:flex">
+              <ClockIcon className="h-8 text-orange-400" />
+              <div className="ml-2 text-sm font-semibold text-orange-400">
+                <p className="text-black">
+                  Monday - Friday 9:00am-8:00pm EST
+                  <br />
+                  Saturday 11:00am-4:00pm EST
+                </p>
+              </div>
             </div>
-          </div>
+          )}
           <div className="flex items-center gap-x-4">
             {/* <CallToActionLink href="mailto:info@Engines & Drivetrain.com" className="hidden md:block" invert={invert}>
             info@Engines & Drivetrain.com
@@ -259,7 +261,7 @@ function Header({
           </Link>
         </nav>
       </Container>
-      {!invert && <BreadCrumbs />}
+      {!invert && pathName !== '/used-engines-for-sale' && <BreadCrumbs />}
     </>
   )
 }
@@ -368,6 +370,7 @@ function RootLayoutInner({ children }) {
   let closeRef = useRef()
   let navRef = useRef()
   let shouldReduceMotion = useReducedMotion()
+  const pathName = usePathname()
 
   useEffect(() => {
     function onClick(event) {
@@ -473,17 +476,18 @@ function RootLayoutInner({ children }) {
             yOffset={-96}
             interactive
           /> */}
-          <Image
-            src={banner}
-            unoptimized
-            alt="bg"
-            className="absolute inset-x-0 -top-14 -z-10 hidden h-[800px] w-full fill-neutral-50 stroke-orange-400/5 sm:block"
-          />
+          {pathName !== '/used-engines-for-sale' && (
+            <Image
+              src={banner}
+              unoptimized
+              alt="bg"
+              className="absolute inset-x-0 -top-14 -z-10 hidden h-[800px] w-full fill-neutral-50 stroke-orange-400/5 sm:block"
+            />
+          )}
           <div className="absolute inset-x-0 -top-14 -z-10 hidden h-[800px] w-full bg-white fill-neutral-50 stroke-orange-400/5 opacity-70 sm:block" />
 
           <main className="w-full flex-auto">{children}</main>
-
-          <Footer />
+          {pathName !== '/used-engines-for-sale' && <Footer />}
         </motion.div>
       </motion.div>
     </MotionConfig>
@@ -526,7 +530,11 @@ export function RootLayout({ children }) {
         setFormData,
       }}
     >
-      <RootLayoutInner key={pathname}>{children}</RootLayoutInner>
+      {pathname !== '/admin' ? (
+        <RootLayoutInner key={pathname}>{children}</RootLayoutInner>
+      ) : (
+        <>{children}</>
+      )}
     </RootLayoutContext.Provider>
   )
 }
