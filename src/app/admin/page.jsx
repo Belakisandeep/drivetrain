@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 
-export const metadata = {
-  title: 'Admin',
-  description: 'Let’s work together. We can’t wait to hear from you.',
-}
+// export const metadata = {
+//   title: 'Admin',
+//   description: 'Let’s work together. We can’t wait to hear from you.',
+// }
 
 const CenteredForm = () => {
   const [queryHelper, setQueryHelper] = useState({
