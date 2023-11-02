@@ -158,6 +158,54 @@ const EngineForm = ({ part = 'Part' }) => {
         </div>
         <div className="col-span-12 mb-4 sm:col-span-12">
           <select
+            name="part"
+            id="id_part"
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
+            required
+            defaultValue={
+              formSelections.part === '' ? 'Engine' : formSelections.part
+            }
+            value={formSelections.part === '' ? 'Engine' : formSelections.part}
+            onChange={async (e) => {
+              setFormSelections((prev) => ({
+                ...prev,
+                part: e.target.value,
+                make: '',
+                model: '',
+                year: '',
+                size: '',
+              }))
+              const data = await fetch(`/api/formData/${e.target.value}`)
+              const temp = await data.json()
+              if (temp.success) {
+                setOptions((prev) => ({
+                  ...prev,
+                  make: temp.success,
+                  model: [],
+                  year: [],
+                  option: [],
+                }))
+              } else {
+                setOptions((prev) => ({
+                  ...prev,
+                  make: [],
+                  model: [],
+                  year: [],
+                  option: [],
+                }))
+              }
+            }}
+          >
+            <option value="">- Select Part -</option>
+            {options.part.map((part) => (
+              <option key={part} value={part}>
+                {part}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="col-span-12 mb-4 sm:col-span-12">
+          <select
             name="make"
             id="id_make"
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
@@ -325,54 +373,6 @@ const EngineForm = ({ part = 'Part' }) => {
               ))}
             </select>
           )}
-        </div>
-        <div className="col-span-12 mb-4 sm:col-span-12">
-          <select
-            name="part"
-            id="id_part"
-            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
-            required
-            defaultValue={
-              formSelections.part === '' ? 'Engine' : formSelections.part
-            }
-            value={formSelections.part === '' ? 'Engine' : formSelections.part}
-            onChange={async (e) => {
-              setFormSelections((prev) => ({
-                ...prev,
-                part: e.target.value,
-                make: '',
-                model: '',
-                year: '',
-                size: '',
-              }))
-              const data = await fetch(`/api/formData/${e.target.value}`)
-              const temp = await data.json()
-              if (temp.success) {
-                setOptions((prev) => ({
-                  ...prev,
-                  make: temp.success,
-                  model: [],
-                  year: [],
-                  option: [],
-                }))
-              } else {
-                setOptions((prev) => ({
-                  ...prev,
-                  make: [],
-                  model: [],
-                  year: [],
-                  option: [],
-                }))
-              }
-            }}
-          >
-            <option value="">- Select Part -</option>
-            {options.part.map((part) => (
-              <option key={part} value={part}>
-                {part}
-              </option>
-            ))}
-          </select>
         </div>
         <div className="col-span-12 mb-4 sm:col-span-12">
           <input
