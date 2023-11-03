@@ -29,11 +29,14 @@ const EngineForm = ({ part = 'Part' }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    if (
-      (name === 'number' && parseInt(value) <= 9999999999) ||
-      (name === 'number' && value === '')
-    ) {
-      setFormData((prevData) => ({ ...prevData, [name]: value }))
+    if (name === 'number' && (parseInt(value) <= 9999999999 || value === '')) {
+      if (value[0] === '0' || value[0] === '1') {
+        setErrors({ number: 'Please dont enter country code' })
+        setFormData((prevData) => ({ ...prevData, [name]: value }))
+      } else {
+        setErrors({})
+        setFormData((prevData) => ({ ...prevData, [name]: value }))
+      }
     } else if (name !== 'number') {
       setFormData((prevData) => ({ ...prevData, [name]: value }))
     }
