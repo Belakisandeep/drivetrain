@@ -70,23 +70,25 @@ const EngineForm = ({ part = 'Part' }) => {
         },
         body: JSON.stringify(payload),
       })
-      // .then((response) => response.json())
-      // .then((data) => router.push('/thankyou'))
-      // .catch((error) => console.error('Error:', error))
-      fetch(
-        'https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Leads_Data',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-bang-api-key': '2863199089451966548',
-          },
-          body: JSON.stringify(payload),
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => router.push('/thankyou'))
-        .catch((error) => console.error('Error:', error))
+
+      if (mail) {
+        router.push('/thankyou')
+      }
+
+      // fetch(
+      //   'https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Leads_Data',
+      //   {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       'x-bang-api-key': '2863199089451966548',
+      //     },
+      //     body: JSON.stringify(payload),
+      //   }
+      // )
+      //   .then((response) => response.json())
+      //   .then((data) => router.push('/thankyou'))
+      //   .catch((error) => console.error('Error:', error))
     } else {
       setErrors(validationErrors)
     }
