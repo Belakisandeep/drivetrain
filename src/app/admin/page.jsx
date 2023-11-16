@@ -124,7 +124,7 @@ function Table() {
   const defaultColDef = useMemo(() => ({
     sortable: true,
     resizable: true,
-    flex: 1
+    flex: 1,
   }))
 
   const [queryHelper, setQueryHelper] = useState({
@@ -393,6 +393,38 @@ function Table() {
     }
   }
 
+  const [levk, setLevk] = useState({ _levk: null, _nskipc: null })
+
+  const fetchMoreData = () => {
+    const query = `s=>(@p1 Part:*)-[@r1 HAS_MAKE]->(@m1 Make:*)-[@r2 HAS_MODEL]->(@m2 Model:*)-[@r3 HAS_YEAR]->(@y1 Year:*)-[@r4 HAS_SIZE]->(@s1 Size:*)-[@r5 HAS_PROPERTY { _levk="${levk._levk}" AND _nskipc=${levk._nskipc}}]->(@p2 Property:*); RETURN p1.name AS Part, m1.name AS Make, m2.name AS Model, y1.name AS Year, s1.name AS Size, p2.Status AS Status, p2.name AS property_node_id LIMIT 50`
+    const requestOptions = {
+      method: 'POST',
+      headers,
+      body: query,
+    }
+    fetch(url, requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        return response.json()
+      })
+      .then((data) => {
+        setParts((prev) => [...prev, ...data.rows])
+        if (data._levk) {
+          setLevk((prev) => ({ ...prev, _levk: data._levk }))
+        } else {
+          setLevk({ _levk: null, _nskipc: null })
+        }
+        if (data._nskipc) {
+          setLevk((prev) => ({ ...prev, _nskipc: data._nskipc }))
+        }
+      })
+      .catch((error) => {
+        console.error('There was a problem with the POST request:', error)
+      })
+  }
+
   useEffect(() => {
     const fetchData = () => {
       const query = `s=>(@p1 Part:*)-[@r1 HAS_MAKE]->(@m1 Make:*)-[@r2 HAS_MODEL]->(@m2 Model:*)-[@r3 HAS_YEAR]->(@y1 Year:*)-[@r4 HAS_SIZE]->(@s1 Size:*)-[@r5 HAS_PROPERTY]->(@p2 Property:*); RETURN p1.name AS Part, m1.name AS Make, m2.name AS Model, y1.name AS Year, s1.name AS Size, p2.Status AS Status, p2.name AS property_node_id LIMIT 50`
@@ -410,6 +442,12 @@ function Table() {
         })
         .then((data) => {
           setParts(data.rows)
+          if (data._levk) {
+            setLevk((prev) => ({ ...prev, _levk: data._levk }))
+          }
+          if (data._nskipc) {
+            setLevk((prev) => ({ ...prev, _nskipc: data._nskipc }))
+          }
         })
         .catch((error) => {
           console.error('There was a problem with the POST request:', error)
@@ -689,18 +727,18 @@ function Table() {
               pagination={true}
             />
           </div>
-          <div className="flex w-full justify-end mt-0.5">
-            <button
-              onClick={() => {
-                fetchParts()
-                setOpenModal(true)
-              }}
-              type="button"
-              disabled
-              className="block rounded-md bg-gray-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
-            >
-              Fetch More
-            </button>
+          <div className="mt-0.5 flex w-full justify-end">
+            {levk._levk && (
+              <button
+                onClick={() => {
+                  fetchMoreData()
+                }}
+                type="button"
+                className={`block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+              >
+                Fetch More
+              </button>
+            )}
           </div>
         </div>
         {/* <div className="mt-8 flow-root">
