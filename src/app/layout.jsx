@@ -13,6 +13,61 @@ export const metadata = {
 export default function Layout({ children }) {
   return (
     <html lang="en" className="h-full bg-orange-400 text-base antialiased">
+
+      <head>
+      <Script id="BDB_BASE_FILE" strategy="beforeInteractive">
+          {`
+  var _paq = (window._paq = window._paq || []);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  _paq.push(['enableHeartBeatTimer']);
+  _paq.push(['trackAllContentImpressions']);
+  (function () {
+    var u = 'https://testbe.bangdb.com:18080/stream/ShopIQ/Data';
+    _paq.push(['setTrackerUrl', u]);
+    _paq.push(['setSiteId', 'usedTrainTest']);
+    var d = document,
+      s = d.getElementsByTagName('script')[0];
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.async = true;
+      script.src = 'https://cdn.bangdb.com/tm/Yt1qnkzSUaz5/matomo.js';
+      s.parentNode.insertBefore(script, s);
+  })();
+      `}
+        </Script>
+
+        <Script id="LOCATION" strategy="beforeInteractive">
+          {`  
+  async function getLocationData() {
+    try {
+      const response = await fetch(
+        'https://pro.ip-api.com/json/?fields=66846719&key=jNFaThIJUJUwHcp'
+      );
+      const jsonData = await response.json();
+      window._mtm.push({ ip: JSON.stringify(jsonData) });
+      window._mtm.push({ event: 'ip' });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  getLocationData();`}
+        </Script>
+
+        <Script id="BDB_CONTAINERS" strategy="beforeInteractive">
+          {`    var _mtm = window._mtm = window._mtm || [];
+  _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+  var d = document,
+  s = d.getElementsByTagName('script')[0];
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.async = true;
+  script.src = 'https://cdn.bangdb.com/tm/Yt1qnkzSUaz5/f041962ddff144cf9239def93a9f2db4/mastercontainer.js';
+  s.parentNode.insertBefore(script, s);`}
+        </Script>
+      </head>
+      
       {/* <head>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-4S12NLEH3G"></Script>
         <Script id="GTM" strategy="beforeInteractive">
