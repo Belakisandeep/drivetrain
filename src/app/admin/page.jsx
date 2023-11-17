@@ -18,12 +18,19 @@ const CustomChipRenderer = ({ value }) => {
   return (
     <div>
       {isActive ? (
-        <div class="center relative inline-block select-none whitespace-nowrap rounded-lg bg-green-500 px-3.5 py-2 align-baseline font-sans text-xs font-bold uppercase leading-none text-white">
-          Active
+        <div className="mt-1.5 flex items-center justify-center rounded-full border border-green-300 bg-green-100 px-2 py-2 font-medium text-green-700 ">
+          <div className="max-w-full flex-initial text-xs font-normal leading-none">
+            Active
+          </div>
         </div>
       ) : (
-        <div class="center relative inline-block select-none whitespace-nowrap rounded-lg bg-gray-300 px-3.5 py-2 align-baseline font-sans text-xs font-bold uppercase leading-none text-gray-700">
-          Inactive
+        // <div class="center relative inline-block select-none whitespace-nowrap rounded-lg bg-green-500 px-3.5 py-2 align-baseline font-sans text-xs font-bold uppercase leading-none text-white">
+        //   Active
+        // </div>
+        <div className="mt-1.5 flex items-center justify-center rounded-full border border-yellow-300 bg-yellow-100 px-2 py-2 font-medium text-yellow-700 ">
+          <div className="max-w-full flex-initial text-xs font-normal leading-none">
+            Inactive
+          </div>
         </div>
       )}
     </div>
@@ -43,9 +50,13 @@ const EditPartRenderer = (props) => {
           size: props.data.Size,
         })
       }}
-      className="center relative inline-block select-none whitespace-nowrap rounded-lg bg-indigo-600 px-3.5 py-2 align-baseline font-sans text-xs font-bold uppercase leading-none text-white hover:bg-indigo-900"
+      className="mt-1.5 flex w-full items-center justify-center rounded-full border border-blue-300 bg-blue-100 px-2 py-2 font-medium text-blue-700"
+      // className="center relative inline-block select-none whitespace-nowrap rounded-lg bg-indigo-600 px-3.5 py-2 align-baseline font-sans text-xs font-bold uppercase leading-none text-white hover:bg-indigo-900"
     >
-      Edit
+      <div className="max-w-full flex-initial text-xs font-normal leading-none">
+        Edit
+      </div>
+      {/* Edit */}
     </button>
   )
 }
@@ -55,9 +66,13 @@ const DeletePartRenderer = (props) => {
       onClick={() => {
         props.handleDelete(props.value)
       }}
-      className="center relative inline-block select-none whitespace-nowrap rounded-lg bg-red-600 px-3.5 py-2 align-baseline font-sans text-xs font-bold uppercase leading-none text-white hover:bg-red-900"
+      className="mt-1.5 flex w-full items-center justify-center rounded-full border border-red-300 bg-red-100 px-2 py-2 font-medium text-red-700"
+      // className="center relative inline-block select-none whitespace-nowrap rounded-lg bg-red-600 px-3.5 py-2 align-baseline font-sans text-xs font-bold uppercase leading-none text-white hover:bg-red-900"
     >
-      Delete
+      <div className="max-w-full flex-initial text-xs font-normal leading-none">
+        Delete
+      </div>
+      {/* Delete */}
     </button>
   )
 }
@@ -81,7 +96,8 @@ function Table() {
     Quantity: 1,
     action: 'CREATE',
   })
-  const url = 'https://testbe.bangdb.com:18080/graph/adminpanel/query'
+  // const url = 'https://testbe.bangdb.com:18080/graph/adminpanel/query'
+  const url = 'https://testbe.bangdb.com:18080/graph/test_admin/query'
   const headers = {
     'Content-Type': 'application/json',
     'x-bang-api-key': '5562808906891435869',
@@ -396,7 +412,21 @@ function Table() {
   const [levk, setLevk] = useState({ _levk: null, _nskipc: null })
 
   const fetchMoreData = () => {
-    const query = `s=>(@p1 Part:*)-[@r1 HAS_MAKE]->(@m1 Make:*)-[@r2 HAS_MODEL]->(@m2 Model:*)-[@r3 HAS_YEAR]->(@y1 Year:*)-[@r4 HAS_SIZE]->(@s1 Size:*)-[@r5 HAS_PROPERTY { _levk="${levk._levk}" AND _nskipc=${levk._nskipc}}]->(@p2 Property:*); RETURN p1.name AS Part, m1.name AS Make, m2.name AS Model, y1.name AS Year, s1.name AS Size, p2.Status AS Status, p2.name AS property_node_id LIMIT 50`
+    let filter = ''
+    if (levk._levk) {
+      filter = `{ _levk="${levk._levk}" AND _nskipc=${levk._nskipc}}`
+    }
+    const query = `s=>(@p1 Part:${
+      (queryHelper.part && queryHelper.part !== '') ? `"${queryHelper.part}"` : '*'
+    })-[@r1 HAS_MAKE]->(@m1 Make:${
+      (queryHelper.make && queryHelper.make !== '') ? `"${queryHelper.make}"` : '*'
+    })-[@r2 HAS_MODEL]->(@m2 Model:${
+      (queryHelper.model && queryHelper.model !== '') ? `"${queryHelper.model}"` : '*'
+    })-[@r3 HAS_YEAR]->(@y1 Year:${
+      (queryHelper.year && queryHelper.year !== '') ? `"${queryHelper.year}"` : '*'
+    })-[@r4 HAS_SIZE]->(@s1 Size:${
+      (queryHelper.size && queryHelper.size !== '') ? `"${queryHelper.size}"` : '*'
+    })-[@r5 HAS_PROPERTY ${filter}]->(@p2 Property:*); RETURN p1.name AS Part, m1.name AS Make, m2.name AS Model, y1.name AS Year, s1.name AS Size, p2.Status AS Status, p2.name AS property_node_id`
     const requestOptions = {
       method: 'POST',
       headers,
@@ -410,7 +440,11 @@ function Table() {
         return response.json()
       })
       .then((data) => {
-        setParts((prev) => [...prev, ...data.rows])
+        if (levk._levk) {
+          setParts((prev) => [...prev, ...data.rows])
+        } else {
+          setParts([...data.rows])
+        }
         if (data._levk) {
           setLevk((prev) => ({ ...prev, _levk: data._levk }))
         } else {
@@ -453,7 +487,8 @@ function Table() {
           console.error('There was a problem with the POST request:', error)
         })
     }
-    fetchData()
+    fetchParts()
+    // fetchData()
   }, [])
 
   return (
@@ -694,10 +729,10 @@ function Table() {
             <h1 className="text-base font-semibold leading-6 text-gray-900">
               Used Train Dashboard
             </h1>
-            <p className="mt-2 text-sm text-gray-700">
+            {/* <p className="mt-2 text-sm text-gray-700">
               A list of all the parts in your inventory including their
               classifications such as Part, Make, Model, Size, Year etc.
-            </p>
+            </p> */}
           </div>
           <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
             <button
@@ -712,10 +747,185 @@ function Table() {
             </button>
           </div>
         </div>
-        <div className="mt-8 h-full w-full">
+        <div className="grid w-full grid-cols-6 items-end gap-2">
+          <div className="mb-4">
+            <label className="block text-sm font-semibold text-gray-600">
+              Type
+            </label>
+            <CreatableSelect
+              styles={customStyles}
+              options={options?.Type || []}
+              value={{
+                value: queryHelper.part,
+                label: queryHelper.part,
+              }}
+              onChange={(newVal) => {
+                setLevk({ _levk: null, _nskipc: null })
+                fetchMakes(newVal.value)
+                setQueryHelper({
+                  ...queryHelper,
+                  part: newVal?.value,
+                  make: '',
+                  model: '',
+                  year: '',
+                  size: '',
+                })
+              }}
+              onCreateOption={(e) => {
+                setLevk({ _levk: null, _nskipc: null })
+                fetchMakes(e)
+                handleCreate('part', e)
+              }}
+              isClearable
+              isSearchable
+              placeholder="Select or create a Type"
+              isMulti={false} // Set to true for multiple selections
+              className="react-select-container"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-semibold text-gray-600">
+              Make
+            </label>
+            <CreatableSelect
+              styles={customStyles}
+              options={options?.Make || []}
+              value={{
+                value: queryHelper.make,
+                label: queryHelper.make,
+              }}
+              onChange={(newVal) => {
+                setLevk({ _levk: null, _nskipc: null })
+                fetchModel(newVal?.value)
+                setQueryHelper({
+                  ...queryHelper,
+                  make: newVal?.value,
+                  model: '',
+                  year: '',
+                  size: '',
+                })
+              }}
+              onCreateOption={(e) => {
+                setLevk({ _levk: null, _nskipc: null })
+                fetchModel(e)
+                handleCreate('make', e)
+              }}
+              isClearable
+              isSearchable
+              placeholder="Select or create a Make"
+              isMulti={false} // Set to true for multiple selections
+              className="react-select-container"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-semibold text-gray-600">
+              Model
+            </label>
+            <CreatableSelect
+              styles={customStyles}
+              options={options?.Model || []}
+              value={{
+                value: queryHelper.model,
+                label: queryHelper.model,
+              }}
+              onChange={(newVal) => {
+                setLevk({ _levk: null, _nskipc: null })
+                fetchYear(newVal?.value)
+                setQueryHelper({
+                  ...queryHelper,
+                  model: newVal?.value,
+                  year: '',
+                  size: '',
+                })
+              }}
+              onCreateOption={(e) => {
+                setLevk({ _levk: null, _nskipc: null })
+                fetchYear(e)
+                handleCreate('model', e)
+              }}
+              isClearable
+              isSearchable
+              placeholder="Select or create a Model"
+              isMulti={false} // Set to true for multiple selections
+              className="react-select-container"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-semibold text-gray-600">
+              Year
+            </label>
+            <CreatableSelect
+              styles={customStyles}
+              options={options?.Year || []}
+              value={{
+                value: queryHelper.year,
+                label: queryHelper.year,
+              }}
+              onChange={(newVal) => {
+                setLevk({ _levk: null, _nskipc: null })
+                fetchSize(newVal?.value)
+                setQueryHelper({
+                  ...queryHelper,
+                  year: newVal?.value,
+                  size: '',
+                })
+              }}
+              onCreateOption={(e) => {
+                setLevk({ _levk: null, _nskipc: null })
+                fetchSize(e)
+                handleCreate('year', e)
+              }}
+              isClearable
+              isSearchable
+              placeholder="Select or create a Year"
+              isMulti={false} // Set to true for multiple selections
+              className="react-select-container"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-semibold text-gray-600">
+              Size
+            </label>
+            <CreatableSelect
+              styles={customStyles}
+              options={options?.Size || []}
+              value={{
+                value: queryHelper.size,
+                label: queryHelper.size,
+              }}
+              onChange={(newVal) => {
+                setLevk({ _levk: null, _nskipc: null })
+                fetchProp(newVal?.value, queryHelper)
+                setQueryHelper({
+                  ...queryHelper,
+                  size: newVal?.value,
+                })
+              }}
+              onCreateOption={(e) => {
+                setLevk({ _levk: null, _nskipc: null })
+                fetchProp(e, queryHelper)
+                handleCreate('size', e)
+              }}
+              isClearable
+              isSearchable
+              placeholder="Select or create a Size"
+              isMulti={false} // Set to true for multiple selections
+              className="react-select-container"
+            />
+          </div>
+          <div className="mb-4">
+            <button
+              onClick={() => fetchMoreData()}
+              className="w-full rounded-md bg-green-600 py-2 font-semibold text-white"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+        <div className="mt-2 h-full w-full">
           <div
             className="ag-theme-alpine"
-            style={{ width: '100%', height: '85%' }}
+            style={{ width: '100%', height: '80%' }}
           >
             <AgGridReact
               ref={gridRef}
