@@ -430,7 +430,7 @@ function Table() {
     })
   }
 
-  async function fetchProp(size, queryHelper) {
+  async function fetchProp(size, queryHelper, filter) {
     const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${queryHelper.make}")-[@r2 HAS_MODEL]->(@m2 Model:"${queryHelper.model}")-[@r3 HAS_YEAR]->(@y1 Year:"${queryHelper.year}")-[@r4 HAS_SIZE]->(@s1 Size:"${size}")-[@r5 HAS_PROPERTY]->(@p2 Property:"${queryHelper.part} ${queryHelper.make} ${queryHelper.model} ${queryHelper.year} ${size}"); RETURN p2.Status AS Status, p2.Quantity AS Quantity, p2.name AS property_node_id`
     const requestOptions = {
       method: 'POST',
@@ -444,15 +444,17 @@ function Table() {
       return response.json()
     })
     if (data.rows.length > 0) {
-      setParts([
-        {
-          Part: queryHelper.part,
-          Make: queryHelper.make,
-          Model: queryHelper.model,
-          Year: queryHelper.year,
-          Size: size,
-        },
-      ])
+      if (filter) {
+        setParts([
+          {
+            Part: queryHelper.part,
+            Make: queryHelper.make,
+            Model: queryHelper.model,
+            Year: queryHelper.year,
+            Size: size,
+          },
+        ])
+      }
       setProperties({
         open: true,
         action: 'UPDATE',
@@ -780,14 +782,14 @@ function Table() {
                         label: queryHelper.size,
                       }}
                       onChange={(newVal) => {
-                        fetchProp(newVal?.value, queryHelper)
+                        fetchProp(newVal?.value, queryHelper, true)
                         setQueryHelper({
                           ...queryHelper,
                           size: newVal?.value,
                         })
                       }}
                       onCreateOption={(e) => {
-                        fetchProp(e, queryHelper)
+                        fetchProp(e, queryHelper, true)
                         handleCreate('size', e)
                       }}
                       isClearable
@@ -998,7 +1000,7 @@ function Table() {
                 }}
                 onChange={(newVal) => {
                   setLevk({ _levk: null, _nskipc: null })
-                  fetchProp(newVal?.value, queryHelper)
+                  fetchProp(newVal?.value, queryHelper, true)
                   setQueryHelper({
                     ...queryHelper,
                     size: newVal?.value,
@@ -1006,7 +1008,7 @@ function Table() {
                 }}
                 onCreateOption={(e) => {
                   setLevk({ _levk: null, _nskipc: null })
-                  fetchProp(e, queryHelper)
+                  fetchProp(e, queryHelper, true)
                   handleCreate('size', e)
                 }}
                 isClearable
