@@ -3,6 +3,7 @@
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import CreatableSelect from 'react-select/creatable'
+import Select from 'react-select'
 import { AgGridReact } from 'ag-grid-react' // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css' // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css' // Optional theme CSS
@@ -86,7 +87,7 @@ const customStyles = {
 }
 
 function Table() {
-  const [parts, setParts] = useState([])
+  const [parts, setParts] = useState([{}])
   const [openModal, setOpenModal] = useState(false)
   const [openDetails, setOpenDetails] = useState(null)
   const [options, setOptions] = useState({})
@@ -107,35 +108,73 @@ function Table() {
   const gridRef = useRef() // Optional - for accessing Grid's API
 
   // Each Column Definition results in one Column.
-  const [columnDefs, setColumnDefs] = useState([
-    { field: 'Part', filter: true },
-    { field: 'Make', filter: true },
-    { field: 'Model', filter: true },
-    { field: 'Year', filter: true },
-    { field: 'Size', filter: true },
-    {
-      field: 'Status',
-      filter: true,
-      cellRenderer: CustomChipRenderer,
-    },
-    {
-      field: 'property_node_id',
-      headerName: 'Edit',
-      cellRenderer: EditPartRenderer,
-      cellRendererParams: {
-        setOpenModal,
-        fetchProp,
-      },
-    },
-    {
-      field: 'property_node_id',
-      headerName: 'Delete',
-      cellRenderer: DeletePartRenderer,
-      cellRendererParams: {
-        handleDelete,
-      },
-    },
-  ])
+  // const [columnDefs, setColumnDefs] = useState([
+  //   { field: 'Part', filter: true },
+  //   { field: 'Make', filter: true },
+  //   { field: 'Model', filter: true },
+  //   { field: 'Year', filter: true },
+  //   { field: 'Size', filter: true },
+  //   // {
+  //   //   field: 'Status',
+  //   //   filter: true,
+  //   //   cellRenderer: CustomChipRenderer,
+  //   // },
+  //   {
+  //     field: 'property_node_id',
+  //     headerName: 'Edit',
+  //     cellRenderer: EditPartRenderer,
+  //     cellRendererParams: {
+  //       setOpenModal,
+  //       fetchProp,
+  //     },
+  //   },
+  //   {
+  //     field: 'property_node_id',
+  //     headerName: 'Delete',
+  //     cellRenderer: DeletePartRenderer,
+  //     cellRendererParams: {
+  //       handleDelete,
+  //     },
+  //   },
+  // ])
+
+  const columnDefs = useMemo(() => {
+    const properties = Object.keys(parts[0] || {})
+    const arrToReturn = []
+    if (properties.includes('Part')) {
+      arrToReturn.push({ field: 'Part', filter: true })
+    }
+    if (properties.includes('Make')) {
+      arrToReturn.push({ field: 'Make', filter: true })
+    }
+    if (properties.includes('Model')) {
+      arrToReturn.push({ field: 'Model', filter: true })
+    }
+    if (properties.includes('Year')) {
+      arrToReturn.push({ field: 'Year', filter: true })
+    }
+    if (properties.includes('Size')) {
+      arrToReturn.push({ field: 'Size', filter: true })
+      arrToReturn.push({
+        field: 'property_node_id',
+        headerName: 'Edit',
+        cellRenderer: EditPartRenderer,
+        cellRendererParams: {
+          setOpenModal,
+          fetchProp,
+        },
+      })
+      // arrToReturn.push({
+      //   field: 'property_node_id',
+      //   headerName: 'Delete',
+      //   cellRenderer: DeletePartRenderer,
+      //   cellRendererParams: {
+      //     handleDelete,
+      //   },
+      // })
+    }
+    return arrToReturn
+  }, [parts])
 
   const defaultColDef = useMemo(() => ({
     sortable: true,
@@ -205,7 +244,7 @@ function Table() {
 
   const handleSubmit = async () => {
     let data
-    const prop = properties.property_node_id || Date.now()
+    const prop = `"${queryHelper.part} ${queryHelper.make} ${queryHelper.model} ${queryHelper.year} ${queryHelper.size}"`
 
     if (properties.action === 'CREATE') {
       data = `${properties.action} (Part:"${
@@ -253,12 +292,6 @@ function Table() {
               },
             ]
           } else {
-            const edit = prev.find(
-              (x) =>
-                x.property_node_id.toString() ===
-                properties.property_node_id.toString()
-            )
-            edit['Status'] = properties.Status
             return prev
           }
         })
@@ -277,6 +310,13 @@ function Table() {
   }
 
   const fetchParts = async () => {
+    setQueryHelper({
+      part: '',
+      make: '',
+      model: '',
+      year: '',
+      size: '',
+    })
     const query = `s{UNIQUE_SELECT}=>(@p1 Part:*); RETURN p1.name AS Part`
     const requestOptions = {
       method: 'POST',
@@ -289,6 +329,7 @@ function Table() {
       }
       return response.json()
     })
+    setParts(data.rows)
     setOptions({
       Type: data.rows.map((x) => ({ value: x.Part, label: x.Part })),
       Make: [],
@@ -299,7 +340,7 @@ function Table() {
   }
 
   const fetchMakes = async (part) => {
-    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${part}")-[@r1 HAS_MAKE]->(@m1 Make:*); RETURN m1.name AS Make`
+    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${part}")-[@r1 HAS_MAKE]->(@m1 Make:*); RETURN p1.name AS Part, m1.name AS Make`
     const requestOptions = {
       method: 'POST',
       headers,
@@ -311,6 +352,7 @@ function Table() {
       }
       return response.json()
     })
+    setParts(data.rows)
     setOptions({
       ...options,
       Make: data.rows.map((x) => ({ value: x.Make, label: x.Make })),
@@ -321,7 +363,7 @@ function Table() {
   }
 
   const fetchModel = async (make) => {
-    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${make}")-[@r2 HAS_MODEL]->(@m2 Model:*); RETURN m2.name AS Model`
+    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${make}")-[@r2 HAS_MODEL]->(@m2 Model:*); RETURN p1.name AS Part, m1.name AS Make, m2.name AS Model`
     const requestOptions = {
       method: 'POST',
       headers,
@@ -333,6 +375,7 @@ function Table() {
       }
       return response.json()
     })
+    setParts(data.rows)
     setOptions({
       ...options,
       Model: data.rows.map((x) => ({ value: x.Model, label: x.Model })),
@@ -342,7 +385,7 @@ function Table() {
   }
 
   const fetchYear = async (model) => {
-    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${queryHelper.make}")-[@r2 HAS_MODEL]->(@m2 Model:"${model}")-[@r3 HAS_YEAR]->(@y1 Year:*); RETURN y1.name AS Year`
+    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${queryHelper.make}")-[@r2 HAS_MODEL]->(@m2 Model:"${model}")-[@r3 HAS_YEAR]->(@y1 Year:*); RETURN p1.name AS Part, m1.name AS Make, m2.name AS Model, y1.name AS Year`
     const requestOptions = {
       method: 'POST',
       headers,
@@ -354,6 +397,7 @@ function Table() {
       }
       return response.json()
     })
+    setParts(data.rows)
     setOptions({
       ...options,
       Year: data.rows.map((x) => ({ value: x.Year, label: x.Year })),
@@ -362,7 +406,7 @@ function Table() {
   }
 
   const fetchSize = async (year) => {
-    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${queryHelper.make}")-[@r2 HAS_MODEL]->(@m2 Model:"${queryHelper.model}")-[@r3 HAS_YEAR]->(@y1 Year:"${year}")-[@r4 HAS_SIZE]->(@s1 Size:*); RETURN s1.name AS Size`
+    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${queryHelper.make}")-[@r2 HAS_MODEL]->(@m2 Model:"${queryHelper.model}")-[@r3 HAS_YEAR]->(@y1 Year:"${year}")-[@r4 HAS_SIZE]->(@s1 Size:*); RETURN p1.name AS Part, m1.name AS Make, m2.name AS Model, y1.name AS Year, s1.name AS Size`
     const requestOptions = {
       method: 'POST',
       headers,
@@ -374,6 +418,12 @@ function Table() {
       }
       return response.json()
     })
+    setParts(
+      data.rows.map((item) => ({
+        ...item,
+        property_node_id: `${item.Part} ${item.Make} ${item.Model} ${item.Year} ${item.Size}`,
+      }))
+    )
     setOptions({
       ...options,
       Size: data.rows.map((x) => ({ value: x.Size, label: x.Size })),
@@ -381,7 +431,7 @@ function Table() {
   }
 
   async function fetchProp(size, queryHelper) {
-    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${queryHelper.make}")-[@r2 HAS_MODEL]->(@m2 Model:"${queryHelper.model}")-[@r3 HAS_YEAR]->(@y1 Year:"${queryHelper.year}")-[@r4 HAS_SIZE]->(@s1 Size:"${size}")-[@r5 HAS_PROPERTY]->(@p2 Property:*); RETURN p2.Status AS Status, p2.Quantity AS Quantity, p2.name AS property_node_id`
+    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${queryHelper.make}")-[@r2 HAS_MODEL]->(@m2 Model:"${queryHelper.model}")-[@r3 HAS_YEAR]->(@y1 Year:"${queryHelper.year}")-[@r4 HAS_SIZE]->(@s1 Size:"${size}")-[@r5 HAS_PROPERTY]->(@p2 Property:"${queryHelper.part} ${queryHelper.make} ${queryHelper.model} ${queryHelper.year} ${size}"); RETURN p2.Status AS Status, p2.Quantity AS Quantity, p2.name AS property_node_id`
     const requestOptions = {
       method: 'POST',
       headers,
@@ -394,6 +444,15 @@ function Table() {
       return response.json()
     })
     if (data.rows.length > 0) {
+      setParts([
+        {
+          Part: queryHelper.part,
+          Make: queryHelper.make,
+          Model: queryHelper.model,
+          Year: queryHelper.year,
+          Size: size,
+        },
+      ])
       setProperties({
         open: true,
         action: 'UPDATE',
@@ -416,17 +475,39 @@ function Table() {
     if (levk._levk) {
       filter = `{ _levk="${levk._levk}" AND _nskipc=${levk._nskipc}}`
     }
+    let property = '*'
+    const { part, make, model, year, size } = queryHelper
+    if (
+      part &&
+      make &&
+      model &&
+      year &&
+      size &&
+      ![part, make, model, year, size].includes('')
+    ) {
+      property = `"${part} ${make} ${model} ${year} ${size}"`
+    }
     const query = `s=>(@p1 Part:${
-      (queryHelper.part && queryHelper.part !== '') ? `"${queryHelper.part}"` : '*'
+      queryHelper.part && queryHelper.part !== ''
+        ? `"${queryHelper.part}"`
+        : '*'
     })-[@r1 HAS_MAKE]->(@m1 Make:${
-      (queryHelper.make && queryHelper.make !== '') ? `"${queryHelper.make}"` : '*'
+      queryHelper.make && queryHelper.make !== ''
+        ? `"${queryHelper.make}"`
+        : '*'
     })-[@r2 HAS_MODEL]->(@m2 Model:${
-      (queryHelper.model && queryHelper.model !== '') ? `"${queryHelper.model}"` : '*'
+      queryHelper.model && queryHelper.model !== ''
+        ? `"${queryHelper.model}"`
+        : '*'
     })-[@r3 HAS_YEAR]->(@y1 Year:${
-      (queryHelper.year && queryHelper.year !== '') ? `"${queryHelper.year}"` : '*'
+      queryHelper.year && queryHelper.year !== ''
+        ? `"${queryHelper.year}"`
+        : '*'
     })-[@r4 HAS_SIZE]->(@s1 Size:${
-      (queryHelper.size && queryHelper.size !== '') ? `"${queryHelper.size}"` : '*'
-    })-[@r5 HAS_PROPERTY ${filter}]->(@p2 Property:*); RETURN p1.name AS Part, m1.name AS Make, m2.name AS Model, y1.name AS Year, s1.name AS Size, p2.Status AS Status, p2.name AS property_node_id`
+      queryHelper.size && queryHelper.size !== ''
+        ? `"${queryHelper.size}"`
+        : '*'
+    })-[@r5 HAS_PROPERTY ${filter}]->(@p2 Property:${property}); RETURN p1.name AS Part, m1.name AS Make, m2.name AS Model, y1.name AS Year, s1.name AS Size, p2.Status AS Status, p2.name AS property_node_id`
     const requestOptions = {
       method: 'POST',
       headers,
@@ -573,7 +654,7 @@ function Table() {
                         label: queryHelper.part,
                       }}
                       onChange={(newVal) => {
-                        fetchMakes(newVal.value)
+                        fetchMakes(newVal?.value)
                         setQueryHelper({
                           ...queryHelper,
                           part: newVal?.value,
@@ -723,7 +804,7 @@ function Table() {
         </div>
       )}
 
-      <div className="h-screen bg-white px-4 py-8 sm:px-6 lg:px-8">
+      <div className="h-screen overflow-hidden bg-white px-4 py-8 sm:px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
             <h1 className="text-base font-semibold leading-6 text-gray-900">
@@ -734,25 +815,40 @@ function Table() {
               classifications such as Part, Make, Model, Size, Year etc.
             </p> */}
           </div>
-          <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+          <div className="mt-4 flex items-center sm:ml-16 sm:mt-0">
             <button
               onClick={() => {
                 fetchParts()
                 setOpenModal(true)
               }}
               type="button"
-              className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="mx-2 block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Add Part
             </button>
+            <svg
+              onClick={() => fetchParts()}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="mx-2 h-6 w-6 cursor-pointer font-semibold text-slate-700"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+              />
+            </svg>
           </div>
         </div>
-        <div className="grid w-full grid-cols-6 items-end gap-2">
+        <div className="grid w-full grid-cols-5 items-end gap-2">
           <div className="mb-4">
             <label className="block text-sm font-semibold text-gray-600">
               Type
             </label>
-            <CreatableSelect
+            <Select
               styles={customStyles}
               options={options?.Type || []}
               value={{
@@ -761,7 +857,7 @@ function Table() {
               }}
               onChange={(newVal) => {
                 setLevk({ _levk: null, _nskipc: null })
-                fetchMakes(newVal.value)
+                fetchMakes(newVal?.value)
                 setQueryHelper({
                   ...queryHelper,
                   part: newVal?.value,
@@ -771,11 +867,11 @@ function Table() {
                   size: '',
                 })
               }}
-              onCreateOption={(e) => {
-                setLevk({ _levk: null, _nskipc: null })
-                fetchMakes(e)
-                handleCreate('part', e)
-              }}
+              // onCreateOption={(e) => {
+              //   setLevk({ _levk: null, _nskipc: null })
+              //   fetchMakes(e)
+              //   handleCreate('part', e)
+              // }}
               isClearable
               isSearchable
               placeholder="Select or create a Type"
@@ -783,144 +879,153 @@ function Table() {
               className="react-select-container"
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-600">
-              Make
-            </label>
-            <CreatableSelect
-              styles={customStyles}
-              options={options?.Make || []}
-              value={{
-                value: queryHelper.make,
-                label: queryHelper.make,
-              }}
-              onChange={(newVal) => {
-                setLevk({ _levk: null, _nskipc: null })
-                fetchModel(newVal?.value)
-                setQueryHelper({
-                  ...queryHelper,
-                  make: newVal?.value,
-                  model: '',
-                  year: '',
-                  size: '',
-                })
-              }}
-              onCreateOption={(e) => {
-                setLevk({ _levk: null, _nskipc: null })
-                fetchModel(e)
-                handleCreate('make', e)
-              }}
-              isClearable
-              isSearchable
-              placeholder="Select or create a Make"
-              isMulti={false} // Set to true for multiple selections
-              className="react-select-container"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-600">
-              Model
-            </label>
-            <CreatableSelect
-              styles={customStyles}
-              options={options?.Model || []}
-              value={{
-                value: queryHelper.model,
-                label: queryHelper.model,
-              }}
-              onChange={(newVal) => {
-                setLevk({ _levk: null, _nskipc: null })
-                fetchYear(newVal?.value)
-                setQueryHelper({
-                  ...queryHelper,
-                  model: newVal?.value,
-                  year: '',
-                  size: '',
-                })
-              }}
-              onCreateOption={(e) => {
-                setLevk({ _levk: null, _nskipc: null })
-                fetchYear(e)
-                handleCreate('model', e)
-              }}
-              isClearable
-              isSearchable
-              placeholder="Select or create a Model"
-              isMulti={false} // Set to true for multiple selections
-              className="react-select-container"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-600">
-              Year
-            </label>
-            <CreatableSelect
-              styles={customStyles}
-              options={options?.Year || []}
-              value={{
-                value: queryHelper.year,
-                label: queryHelper.year,
-              }}
-              onChange={(newVal) => {
-                setLevk({ _levk: null, _nskipc: null })
-                fetchSize(newVal?.value)
-                setQueryHelper({
-                  ...queryHelper,
-                  year: newVal?.value,
-                  size: '',
-                })
-              }}
-              onCreateOption={(e) => {
-                setLevk({ _levk: null, _nskipc: null })
-                fetchSize(e)
-                handleCreate('year', e)
-              }}
-              isClearable
-              isSearchable
-              placeholder="Select or create a Year"
-              isMulti={false} // Set to true for multiple selections
-              className="react-select-container"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-600">
-              Size
-            </label>
-            <CreatableSelect
-              styles={customStyles}
-              options={options?.Size || []}
-              value={{
-                value: queryHelper.size,
-                label: queryHelper.size,
-              }}
-              onChange={(newVal) => {
-                setLevk({ _levk: null, _nskipc: null })
-                fetchProp(newVal?.value, queryHelper)
-                setQueryHelper({
-                  ...queryHelper,
-                  size: newVal?.value,
-                })
-              }}
-              onCreateOption={(e) => {
-                setLevk({ _levk: null, _nskipc: null })
-                fetchProp(e, queryHelper)
-                handleCreate('size', e)
-              }}
-              isClearable
-              isSearchable
-              placeholder="Select or create a Size"
-              isMulti={false} // Set to true for multiple selections
-              className="react-select-container"
-            />
-          </div>
-          <div className="mb-4">
+          {queryHelper.part && queryHelper.part !== '' && (
+            <div className="mb-4">
+              <label className="block text-sm font-semibold text-gray-600">
+                Make
+              </label>
+              <Select
+                styles={customStyles}
+                options={options?.Make || []}
+                value={{
+                  value: queryHelper.make,
+                  label: queryHelper.make,
+                }}
+                onChange={(newVal) => {
+                  setLevk({ _levk: null, _nskipc: null })
+                  fetchModel(newVal?.value)
+                  setQueryHelper({
+                    ...queryHelper,
+                    make: newVal?.value,
+                    model: '',
+                    year: '',
+                    size: '',
+                  })
+                }}
+                // onCreateOption={(e) => {
+                //   setLevk({ _levk: null, _nskipc: null })
+                //   fetchModel(e)
+                //   handleCreate('make', e)
+                // }}
+                isClearable
+                isSearchable
+                placeholder="Select or create a Make"
+                isMulti={false} // Set to true for multiple selections
+                className="react-select-container"
+              />
+            </div>
+          )}
+          {queryHelper.make && queryHelper.make !== '' && (
+            <div className="mb-4">
+              <label className="block text-sm font-semibold text-gray-600">
+                Model
+              </label>
+              <Select
+                styles={customStyles}
+                options={options?.Model || []}
+                value={{
+                  value: queryHelper.model,
+                  label: queryHelper.model,
+                }}
+                onChange={(newVal) => {
+                  setLevk({ _levk: null, _nskipc: null })
+                  fetchYear(newVal?.value)
+                  setQueryHelper({
+                    ...queryHelper,
+                    model: newVal?.value,
+                    year: '',
+                    size: '',
+                  })
+                }}
+                onCreateOption={(e) => {
+                  setLevk({ _levk: null, _nskipc: null })
+                  fetchYear(e)
+                  handleCreate('model', e)
+                }}
+                isClearable
+                isSearchable
+                placeholder="Select or create a Model"
+                isMulti={false} // Set to true for multiple selections
+                className="react-select-container"
+              />
+            </div>
+          )}
+          {queryHelper.model && queryHelper.model !== '' && (
+            <div className="mb-4">
+              <label className="block text-sm font-semibold text-gray-600">
+                Year
+              </label>
+              <Select
+                styles={customStyles}
+                options={options?.Year || []}
+                value={{
+                  value: queryHelper.year,
+                  label: queryHelper.year,
+                }}
+                onChange={(newVal) => {
+                  setLevk({ _levk: null, _nskipc: null })
+                  fetchSize(newVal?.value)
+                  setQueryHelper({
+                    ...queryHelper,
+                    year: newVal?.value,
+                    size: '',
+                  })
+                }}
+                onCreateOption={(e) => {
+                  setLevk({ _levk: null, _nskipc: null })
+                  fetchSize(e)
+                  handleCreate('year', e)
+                }}
+                isClearable
+                isSearchable
+                placeholder="Select or create a Year"
+                isMulti={false} // Set to true for multiple selections
+                className="react-select-container"
+              />
+            </div>
+          )}
+          {queryHelper.year && queryHelper.year !== '' && (
+            <div className="mb-4">
+              <label className="block text-sm font-semibold text-gray-600">
+                Size
+              </label>
+              <Select
+                styles={customStyles}
+                options={options?.Size || []}
+                value={{
+                  value: queryHelper.size,
+                  label: queryHelper.size,
+                }}
+                onChange={(newVal) => {
+                  setLevk({ _levk: null, _nskipc: null })
+                  fetchProp(newVal?.value, queryHelper)
+                  setQueryHelper({
+                    ...queryHelper,
+                    size: newVal?.value,
+                  })
+                }}
+                onCreateOption={(e) => {
+                  setLevk({ _levk: null, _nskipc: null })
+                  fetchProp(e, queryHelper)
+                  handleCreate('size', e)
+                }}
+                isClearable
+                isSearchable
+                placeholder="Select or create a Size"
+                isMulti={false} // Set to true for multiple selections
+                className="react-select-container"
+              />
+            </div>
+          )}
+
+          {/* <div className="mb-4">
             <button
               onClick={() => fetchMoreData()}
               className="w-full rounded-md bg-green-600 py-2 font-semibold text-white"
             >
               Search
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="mt-2 h-full w-full">
           <div
