@@ -173,6 +173,13 @@ function Table() {
       //   },
       // })
     }
+    if (properties.includes('status')) {
+      arrToReturn.push({
+        field: 'status',
+        headerName: 'Status',
+        cellRenderer: CustomChipRenderer,
+      })
+    }
     return arrToReturn
   }, [parts])
 
@@ -244,7 +251,9 @@ function Table() {
 
   const handleSubmit = async () => {
     let data
+    let sizeData
     const prop = `"${queryHelper.part} ${queryHelper.make} ${queryHelper.model} ${queryHelper.year} ${queryHelper.size}"`
+    const status = `${queryHelper.part}${queryHelper.make}${queryHelper.model}${queryHelper.year}`
 
     if (properties.action === 'CREATE') {
       data = `${properties.action} (Part:"${
@@ -253,19 +262,38 @@ function Table() {
         queryHelper.model
       }")-[HAS_YEAR]->(Year:"${queryHelper.year}")-[HAS_SIZE]->(Size:"${
         queryHelper.size
-      }")-[HAS_PROPERTY]->(Property:${prop} {"Status": ${
+      }" {"${status}": ${
+        properties.Status || 0
+      }})-[HAS_PROPERTY]->(Property:${prop} {"Status": ${
         properties.Status || 0
       }, "Quantity": ${properties.Quantity || 1}})`
     } else {
       data = `${properties.action} (Property:${prop} {"Status": ${
         properties.Status || 0
       }, "Quantity": ${properties.Quantity || 1}})`
+
+      sizeData = `${properties.action} (Size:"${
+        queryHelper.size
+      }" {"${status}": ${properties.Status || 0}})`
     }
 
     const requestOptions = {
       method: 'POST',
       headers,
       body: data,
+    }
+
+    if (sizeData) {
+      fetch(url, {
+        method: 'POST',
+        headers,
+        body: sizeData,
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error('Network Error')
+        }
+        return response.json()
+      })
     }
 
     fetch(url, requestOptions)
@@ -287,12 +315,19 @@ function Table() {
                 Model: model,
                 Year: year,
                 Size: size,
+                status: properties.Status || 0,
                 Status: properties.Status || 0,
                 property_node_id: prop,
               },
             ]
           } else {
-            return prev
+            const clone = structuredClone(prev)
+            const tochange = clone.find((x) => `"${x.property_node_id}"` === prop)
+            if (tochange) {
+              tochange.status = properties.Status || 0
+              tochange.Status = properties?.Status || 0
+            }
+            return clone
           }
         })
         setProperties({
@@ -406,7 +441,8 @@ function Table() {
   }
 
   const fetchSize = async (year) => {
-    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${queryHelper.make}")-[@r2 HAS_MODEL]->(@m2 Model:"${queryHelper.model}")-[@r3 HAS_YEAR]->(@y1 Year:"${year}")-[@r4 HAS_SIZE]->(@s1 Size:*); RETURN p1.name AS Part, m1.name AS Make, m2.name AS Model, y1.name AS Year, s1.name AS Size`
+    const status = `${queryHelper.part}${queryHelper.make}${queryHelper.model}${year}`
+    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${queryHelper.make}")-[@r2 HAS_MODEL]->(@m2 Model:"${queryHelper.model}")-[@r3 HAS_YEAR]->(@y1 Year:"${year}")-[@r4 HAS_SIZE]->(@s1 Size:* {"${queryHelper.part}${queryHelper.make}${queryHelper.model}${year}" > 0}); RETURN p1.name AS Part, m1.name AS Make, m2.name AS Model, y1.name AS Year, s1.name AS Size, s1.${queryHelper.part}${queryHelper.make}${queryHelper.model}${year} AS status`
     const requestOptions = {
       method: 'POST',
       headers,
@@ -431,7 +467,11 @@ function Table() {
   }
 
   async function fetchProp(size, queryHelper, filter) {
-    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${queryHelper.make}")-[@r2 HAS_MODEL]->(@m2 Model:"${queryHelper.model}")-[@r3 HAS_YEAR]->(@y1 Year:"${queryHelper.year}")-[@r4 HAS_SIZE]->(@s1 Size:"${size}")-[@r5 HAS_PROPERTY]->(@p2 Property:"${queryHelper.part} ${queryHelper.make} ${queryHelper.model} ${queryHelper.year} ${size}"); RETURN p2.Status AS Status, p2.Quantity AS Quantity, p2.name AS property_node_id`
+    setQueryHelper((prev) => ({
+      ...prev,
+      size: size,
+    }))
+    const query = `s{UNIQUE_SELECT}=>(@p1 Part:"${queryHelper.part}")-[@r1 HAS_MAKE]->(@m1 Make:"${queryHelper.make}")-[@r2 HAS_MODEL]->(@m2 Model:"${queryHelper.model}")-[@r3 HAS_YEAR]->(@y1 Year:"${queryHelper.year}")-[@r4 HAS_SIZE]->(@s1 Size:"${size}")-[@r5 HAS_PROPERTY]->(@p2 Property:"${queryHelper.part} ${queryHelper.make} ${queryHelper.model} ${queryHelper.year} ${size}"); RETURN p2.Status AS Status, p2.Quantity AS Quantity, p2.name AS property_node_id, s1.${queryHelper.part}${queryHelper.make}${queryHelper.model}${queryHelper.year} AS status`
     const requestOptions = {
       method: 'POST',
       headers,
@@ -452,6 +492,7 @@ function Table() {
             Model: queryHelper.model,
             Year: queryHelper.year,
             Size: size,
+            status: data.rows[0]?.status,
           },
         ])
       }
@@ -611,11 +652,11 @@ function Table() {
                       type="checkbox"
                       id="toggle"
                       className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out"
-                      checked={properties.Status !== 0}
+                      checked={properties.Status === 1}
                       onChange={(e) =>
                         setProperties((prev) => ({
                           ...prev,
-                          Status: e.target.checked ? 1 : 0,
+                          Status: e.target.checked ? 1 : 2,
                         }))
                       }
                     />
