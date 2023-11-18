@@ -98,7 +98,7 @@ function Table() {
     action: 'CREATE',
   })
   // const url = 'https://testbe.bangdb.com:18080/graph/adminpanel/query'
-  const url = 'https://testbe.bangdb.com:18080/graph/test_admin/query'
+  const url = 'https://testbe.bangdb.com:18080/graph/autoparts_admin/query'
   const headers = {
     'Content-Type': 'application/json',
     'x-bang-api-key': '5562808906891435869',
