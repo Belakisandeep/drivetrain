@@ -262,7 +262,7 @@ function Table() {
         queryHelper.model
       }")-[HAS_YEAR]->(Year:"${queryHelper.year}")-[HAS_SIZE]->(Size:"${
         queryHelper.size
-      }" {"${status.replace(/ /g,'')}": ${
+      }" {"${status.replace(/ /g, '')}": ${
         properties.Status || 0
       }})-[HAS_PROPERTY]->(Property:${prop} {"Status": ${
         properties.Status || 0
@@ -274,7 +274,7 @@ function Table() {
 
       sizeData = `${properties.action} (Size:"${
         queryHelper.size
-      }" {"${status.replace(/ /g,'')}": ${properties.Status || 0}})`
+      }" {"${status.replace(/ /g, '')}": ${properties.Status || 0}})`
     }
 
     const requestOptions = {
@@ -322,7 +322,9 @@ function Table() {
             ]
           } else {
             const clone = structuredClone(prev)
-            const tochange = clone.find((x) => `"${x.property_node_id}"` === prop)
+            const tochange = clone.find(
+              (x) => `"${x.property_node_id}"` === prop
+            )
             if (tochange) {
               tochange.status = properties.Status || 0
               tochange.Status = properties?.Status || 0
@@ -900,7 +902,11 @@ function Table() {
               }}
               onChange={(newVal) => {
                 setLevk({ _levk: null, _nskipc: null })
-                fetchMakes(newVal?.value)
+                if (newVal?.value) {
+                  fetchMakes(newVal?.value)
+                } else {
+                  fetchParts()
+                }
                 setQueryHelper({
                   ...queryHelper,
                   part: newVal?.value,
@@ -936,7 +942,11 @@ function Table() {
                 }}
                 onChange={(newVal) => {
                   setLevk({ _levk: null, _nskipc: null })
-                  fetchModel(newVal?.value)
+                  if (newVal?.value) {
+                    fetchModel(newVal?.value)
+                  } else {
+                    fetchMakes(queryHelper.part)
+                  }
                   setQueryHelper({
                     ...queryHelper,
                     make: newVal?.value,
@@ -972,7 +982,11 @@ function Table() {
                 }}
                 onChange={(newVal) => {
                   setLevk({ _levk: null, _nskipc: null })
-                  fetchYear(newVal?.value)
+                  if (newVal?.value) {
+                    fetchYear(newVal?.value)
+                  } else {
+                    fetchModel(queryHelper.make)
+                  }
                   setQueryHelper({
                     ...queryHelper,
                     model: newVal?.value,
@@ -1007,7 +1021,11 @@ function Table() {
                 }}
                 onChange={(newVal) => {
                   setLevk({ _levk: null, _nskipc: null })
-                  fetchSize(newVal?.value)
+                  if (newVal?.value) {
+                    fetchSize(newVal?.value)
+                  } else {
+                    fetchYear(queryHelper.model)
+                  }
                   setQueryHelper({
                     ...queryHelper,
                     year: newVal?.value,
@@ -1041,7 +1059,11 @@ function Table() {
                 }}
                 onChange={(newVal) => {
                   setLevk({ _levk: null, _nskipc: null })
-                  fetchProp(newVal?.value, queryHelper, true)
+                  if (newVal?.value) {
+                    fetchProp(newVal?.value, queryHelper, true)
+                  } else {
+                    fetchSize(queryHelper.year)
+                  }
                   setQueryHelper({
                     ...queryHelper,
                     size: newVal?.value,
