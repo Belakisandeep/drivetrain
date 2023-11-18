@@ -262,7 +262,7 @@ function Table() {
         queryHelper.model
       }")-[HAS_YEAR]->(Year:"${queryHelper.year}")-[HAS_SIZE]->(Size:"${
         queryHelper.size
-      }" {"${status}": ${
+      }" {"${status.replace(/ /g,'')}": ${
         properties.Status || 0
       }})-[HAS_PROPERTY]->(Property:${prop} {"Status": ${
         properties.Status || 0
@@ -274,7 +274,7 @@ function Table() {
 
       sizeData = `${properties.action} (Size:"${
         queryHelper.size
-      }" {"${status}": ${properties.Status || 0}})`
+      }" {"${status.replace(/ /g,'')}": ${properties.Status || 0}})`
     }
 
     const requestOptions = {
@@ -455,14 +455,14 @@ function Table() {
       return response.json()
     })
     setParts(
-      data.rows.map((item) => ({
+      data?.rows?.map((item) => ({
         ...item,
         property_node_id: `${item.Part} ${item.Make} ${item.Model} ${item.Year} ${item.Size}`,
-      }))
+      })) || []
     )
     setOptions({
       ...options,
-      Size: data.rows.map((x) => ({ value: x.Size, label: x.Size })),
+      Size: data?.rows?.map((x) => ({ value: x.Size, label: x.Size })) || [],
     })
   }
 
@@ -483,7 +483,7 @@ function Table() {
       }
       return response.json()
     })
-    if (data.rows.length > 0) {
+    if (data?.rows?.length > 0) {
       if (filter) {
         setParts([
           {
