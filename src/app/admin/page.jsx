@@ -317,13 +317,13 @@ function Table() {
                 Size: size,
                 status: properties.Status || 0,
                 Status: properties.Status || 0,
-                property_node_id: prop,
+                property_node_id: `${prop}`,
               },
             ]
           } else {
             const clone = structuredClone(prev)
             const tochange = clone.find(
-              (x) => `"${x.property_node_id}"` === prop
+              (x) => `${x.property_node_id}`.indexOf(prop) > -1
             )
             if (tochange) {
               tochange.status = properties.Status || 0
