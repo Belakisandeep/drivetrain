@@ -323,7 +323,9 @@ function Table() {
           } else {
             const clone = structuredClone(prev)
             const tochange = clone.find(
-              (x) => `${x.property_node_id}`.indexOf(prop) > -1
+              (x) =>
+                `${x.property_node_id}`.replace(/"/g, '').replace(/\\/g, '') ===
+                prop.replace(/"/g, '').replace(/\\/g, '')
             )
             if (tochange) {
               tochange.status = properties.Status || 0
@@ -658,6 +660,7 @@ function Table() {
                       onChange={(e) =>
                         setProperties((prev) => ({
                           ...prev,
+                          status: e.target.checked ? 1 : 2,
                           Status: e.target.checked ? 1 : 2,
                         }))
                       }
