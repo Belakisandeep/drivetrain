@@ -97,7 +97,8 @@ function Table() {
     Quantity: 1,
     action: 'CREATE',
   })
-  const url = 'https://javeed.bangdb.com:18080/graph/Autoparts_admin_panel/query'
+  const url =
+    'https://javeed.bangdb.com:18080/graph/Autoparts_admin_panel/query'
   // const url = 'https://testbe.bangdb.com:18080/graph/autoparts_admin/query'
   const headers = {
     'Content-Type': 'application/json',
@@ -1247,11 +1248,99 @@ function Table() {
   )
 }
 
+function Login({ setIsLoggedIn }) {
+  const [creds, setCreds] = useState({ userid: '', pwd: '' })
+  const [errors, setErrors] = useState('')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const url = 'https://user.bangdb.com:18080/user/authenticate_user'
+    const response = await fetch(url, {
+      method: 'POST',
+      'content-Type': 'application/json',
+      body: JSON.stringify(creds),
+    }).then((res) => res.json())
+    if (response.apikey) {
+      sessionStorage.setItem('apikey', response.apikey)
+      setIsLoggedIn(true)
+    } else {
+      setErrors('Invalid Credentials')
+    }
+  }
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8 rounded-md p-8 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Log in to your account
+          </h2>
+        </div>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email" className="sr-only">
+              Email address
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              onChange={(e) => {
+                setErrors('')
+                setCreds((prev) => ({ ...prev, userid: e.target.value }))
+              }}
+              className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              placeholder="Email address"
+            />
+          </div>
+          <div>
+            <label htmlFor="password" className="sr-only">
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              onChange={(e) => {
+                setErrors('')
+                setCreds((prev) => ({ ...prev, pwd: e.target.value }))
+              }}
+              required
+              className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              placeholder="Password"
+            />
+          </div>
+          <div>
+            <button
+              type="submit"
+              className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              Log in
+            </button>
+          </div>
+          {errors !== '' && (
+            <div className="text-center text-red-600">{errors}</div>
+          )}
+        </form>
+      </div>
+    </div>
+  )
+}
+
 export default function Admin() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  useEffect(() => {
+    const apikey = sessionStorage.getItem('apikey')
+    if (apikey) {
+      setIsLoggedIn(true)
+    }
+  }, [])
   return (
     <>
       <div className="">
-        <Table />
+        {isLoggedIn ? <Table /> : <Login setIsLoggedIn={setIsLoggedIn} />}
       </div>
     </>
   )
