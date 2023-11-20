@@ -97,11 +97,11 @@ function Table() {
     Quantity: 1,
     action: 'CREATE',
   })
-  // const url = 'https://testbe.bangdb.com:18080/graph/adminpanel/query'
-  const url = 'https://testbe.bangdb.com:18080/graph/autoparts_admin/query'
+  const url = 'https://javeed.bangdb.com:18080/graph/Autoparts_admin_panel/query'
+  // const url = 'https://testbe.bangdb.com:18080/graph/autoparts_admin/query'
   const headers = {
     'Content-Type': 'application/json',
-    'x-bang-api-key': '5562808906891435869',
+    'x-bang-api-key': '2863199089451966548',
     'x-bang-api-src': 'ampere',
   }
 
