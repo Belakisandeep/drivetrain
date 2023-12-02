@@ -34,12 +34,12 @@ export function AvailButton() {
 function NavButton() {
   return (
     <button
-      id="call-hero-main"
+      id="call-nav"
       onClick={handleCallClick}
       className="call-btn mx-auto flex w-fit items-center rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600 sm:mx-0"
     >
       <PhoneIcon className="animate-phone-ring h-6" />
-      <span className="ml-2">+1-888-855-1808</span>
+      <span id="call-nav" className="ml-2">+1-888-855-1808</span>
     </button>
   )
 }

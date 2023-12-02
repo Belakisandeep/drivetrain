@@ -140,9 +140,9 @@ function Header({
               <div className="rounded-full border border-orange-400 p-2">
                 <PhoneIcon className="animate-phone-ring h-6 text-orange-400" />
               </div>
-              <div className="ml-2">
-                <p className="text-sm">Speak with our specialist now</p>
-                <p className="text-lg font-semibold text-orange-400">
+              <div id="call-nav" className="ml-2">
+                <p id="call-nav" className="text-sm">Speak with our specialist now</p>
+                <p id="call-nav" className="text-lg font-semibold text-orange-400">
                   +1-888-855-1808
                 </p>
               </div>
@@ -182,11 +182,11 @@ function Header({
             onClick={handleCallClick}
             className="call-btn flex items-center"
           >
-            <div className="rounded-full border border-orange-400 p-1 sm:p-4">
+            <div id="call-nav" className="rounded-full border border-orange-400 p-1 sm:p-4">
               <PhoneIcon className="animate-phone-ring h-3 text-orange-400 sm:h-5" />
             </div>
-            <div className="ml-2">
-              <p className="text-sm font-semibold text-orange-400">
+            <div id="call-nav" className="ml-2">
+              <p id="call-nav" className="text-sm font-semibold text-orange-400">
                 +1-888-855-1808
               </p>
             </div>
