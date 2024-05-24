@@ -133,25 +133,25 @@ function Header({
             info@Engines & Drivetrain.com
           </CallToActionLink> */}
             <button
-              id="call-nav"
+              id="call-btn"
               onClick={handleCallClick}
               className="call-btn hidden items-center sm:flex"
             >
               <div
-                id="call-nav"
+                id="call-btn"
                 className="rounded-full border border-orange-400 p-2"
               >
                 <PhoneIcon
-                  id="call-nav"
+                  id="call-btn"
                   className="animate-phone-ring h-6 text-orange-400"
                 />
               </div>
-              <div id="call-nav" className="ml-2">
-                <p id="call-nav" className="text-sm">
+              <div id="call-btn" className="ml-2">
+                <p id="call-btn" className="text-sm">
                   Speak with our specialist now
                 </p>
                 <p
-                  id="call-nav"
+                  id="call-btn"
                   className="text-lg font-semibold text-orange-400"
                 >
                   +1-888-855-1808
@@ -189,22 +189,22 @@ function Header({
           }
         >
           <button
-            id="call-nav"
+            id="call-btn"
             onClick={handleCallClick}
             className="call-btn flex items-center"
           >
             <div
-              id="call-nav"
+              id="call-btn"
               className="rounded-full border border-orange-400 p-1 sm:p-4"
             >
               <PhoneIcon
-                id="call-nav"
+                id="call-btn"
                 className="animate-phone-ring h-3 text-orange-400 sm:h-5"
               />
             </div>
-            <div id="call-nav" className="ml-2">
+            <div id="call-btn" className="ml-2">
               <p
-                id="call-nav"
+                id="call-btn"
                 className="text-sm font-semibold text-orange-400"
               >
                 +1-888-855-1808
