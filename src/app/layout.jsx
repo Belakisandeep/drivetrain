@@ -69,14 +69,14 @@ export default function Layout({ children }) {
       </head> */}
       
       <head>
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-4S12NLEH3G"></Script>
+        {/* <Script src="https://www.googletagmanager.com/gtag/js?id=G-4S12NLEH3G"></Script>
         <Script id="GTM" strategy="beforeInteractive">
           {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
         
           gtag('config', 'G-4S12NLEH3G');`}
-        </Script>
+        </Script> */}
 
         <Script id="BDB_BASE_FILE" strategy="beforeInteractive">
           {`
@@ -86,9 +86,9 @@ _paq.push(['enableLinkTracking']);
 _paq.push(['enableHeartBeatTimer']);
 _paq.push(['trackAllContentImpressions']);
 (function () {
-  var u = 'https://javeed.bangdb.com:18080/stream/used_engines_drivetrain/Data';
+  var u = 'https://javeed.bangdb.com:18080/stream/qualityautoconsultation/Data';
   _paq.push(['setTrackerUrl', u]);
-  _paq.push(['setSiteId', 'used-engines-drivetrain.us']);
+  _paq.push(['setSiteId', 'qualityautoconsultation']);
   var d = document,
     s = d.getElementsByTagName('script')[0];
     const script = document.createElement('script');
@@ -126,11 +126,11 @@ _paq.push(['trackAllContentImpressions']);
   const script = document.createElement('script');
   script.type = 'text/javascript';
   script.async = true;
-  script.src = 'https://cdn.bangdb.com/tm/KpG4GoZiM6Py/3fbcc18fe6f44f56934d055112a2bb88/mastercontainer.js';
+  script.src = 'https://cdn.bangdb.com/tm/KpG4GoZiM6Py/71f7f20efc394cc9b5410ed9d6fd8ae5/mastercontainer.js';
   s.parentNode.insertBefore(script, s);`}
         </Script>
 
-        <Script id="bing" strategy="beforeInteractive">
+        {/* <Script id="bing" strategy="beforeInteractive">
           {`(function(w,d,t,r,u)
           {
               var f,n,i;
@@ -155,16 +155,16 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-WS4Q9DGK');`}
-        </Script>
+        </Script> */}
       </head>
 
       <body className="flex min-h-full flex-col">
         <RootLayout>{children}</RootLayout>
-        <noscript
+        {/* <noscript
           dangerouslySetInnerHTML={{
             __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WS4Q9DGK" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
           }}
-        />
+        /> */}
       </body>
     </html>
   )
