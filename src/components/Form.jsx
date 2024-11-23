@@ -537,7 +537,7 @@ const FormComponent = ({ part = 'Part' }) => {
             <p className="pl-2 text-xs text-red-600">{errors.number}</p>
           )}
         </div>
-        {/* <div className="col-span-12 mb-4 sm:col-span-12">
+         <div className="col-span-12 mb-4 sm:col-span-12">
           <input
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
             id="name"
@@ -548,7 +548,7 @@ const FormComponent = ({ part = 'Part' }) => {
             value={formDataLoc.name}
             onChange={handleChange}
           />
-        </div> */}
+        </div> 
         <div className="col-span-12 flex items-center justify-between">
           <button
             // onClick={() => {
