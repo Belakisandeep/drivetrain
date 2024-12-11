@@ -29,15 +29,15 @@ const FormComponent = ({ part = 'Part' }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    if (name === 'number' && (parseInt(value) <= 9999999999 || value === '')) {
+    if (name === 'phone' && (parseInt(value) <= 9999999999 || value === '')) {
       if (value[0] === '0' || value[0] === '1') {
-        setErrors({ number: 'Please dont enter country code' })
+        setErrors({ phone: 'Please dont enter country code' })
         setFormData((prevData) => ({ ...prevData, [name]: value }))
       } else {
         setErrors({})
         setFormData((prevData) => ({ ...prevData, [name]: value }))
       }
-    } else if (name !== 'number') {
+    } else if (name !== 'phone') {
       setFormData((prevData) => ({ ...prevData, [name]: value }))
     }
   }
@@ -59,7 +59,7 @@ const FormComponent = ({ part = 'Part' }) => {
         // Size: formSelections.size,
         Part: formSelections.part,
         // Name: formDataLoc.name,
-        Phone: formDataLoc.number,
+        Phone: formDataLoc.phone,
         // Email: formDataLoc.email,
         _id,
       }
@@ -100,10 +100,10 @@ const FormComponent = ({ part = 'Part' }) => {
     // if (!data.name) {
     //   errors.name = 'Name is required'
     // }
-    if (!data.number) {
-      errors.number = 'Mobile number is required'
-    } else if (!/^\d{10}$/.test(data.number)) {
-      errors.number = 'Mobile number should be 10 digits'
+    if (!data.phone) {
+      errors.phone = 'Mobile number is required'
+    } else if (!/^\d{10}$/.test(data.phone)) {
+      errors.phone = 'Mobile number should be 10 digits'
     }
     // if (!data.email) {
     //   errors.email = 'Email is required'
@@ -518,9 +518,9 @@ const FormComponent = ({ part = 'Part' }) => {
         <div className="col-span-12 sm:col-span-12">
           <input
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
-            id="number"
+            id="phone"
             type="number"
-            name="number"
+            name="phone"
             required
             onKeyDown={(evt) => {
               '0123456789'.indexOf(evt.key) < 0 &&
@@ -529,12 +529,12 @@ const FormComponent = ({ part = 'Part' }) => {
                 ) &&
                 evt.preventDefault()
             }}
-            value={formDataLoc.number}
+            value={formDataLoc.phone}
             onChange={handleChange}
             placeholder="Phone Number (Get quote via Text)"
           />
-          {errors.number && (
-            <p className="pl-2 text-xs text-red-600">{errors.number}</p>
+          {errors.phone && (
+            <p className="pl-2 text-xs text-red-600">{errors.phone}</p>
           )}
         </div>
          <div className="col-span-12 sm:col-span-12">
