@@ -12,8 +12,8 @@ export function InstButton() {
       href='tel:+18888551808'
       className="call-btn flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600 sm:mr-4"
     >
-      <PhoneIcon className="animate-phone-ring h-6" />
-      <span className="ml-2">Give us a call.</span>
+      <PhoneIcon id="call-btn" className="animate-phone-ring h-6" />
+      <span id="call-btn" className="ml-2">Give us a call.</span>
     </a>
   )
 }
@@ -21,12 +21,12 @@ export function InstButton() {
 export function AvailButton() {
   return (
     <button
-      id="call-part-avail"
+      id="call-btn"
       onClick={handleCallClick}
       className="call-btn mt-4 flex w-fit rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600"
     >
-      <PhoneIcon className="animate-phone-ring h-6" />
-      <span className="ml-2">Call Now</span>
+      <PhoneIcon id="call-btn" className="animate-phone-ring h-6" />
+      <span id="call-btn" className="ml-2">Call Now</span>
     </button>
   )
 }
@@ -38,7 +38,7 @@ function NavButton() {
       onClick={handleCallClick}
       className="call-btn mx-auto flex w-fit items-center rounded-lg bg-orange-500 px-4 py-2 text-white transition duration-300 hover:bg-orange-600 sm:mx-0"
     >
-      <PhoneIcon className="animate-phone-ring h-6" />
+      <PhoneIcon id="call-btn" className="animate-phone-ring h-6" />
       <span id="call-btn" className="ml-2">+1-888-855-1808</span>
     </button>
   )

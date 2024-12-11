@@ -241,14 +241,14 @@ const FormComponent = ({ part = 'Part' }) => {
       <form
         id="quote-form"
         onSubmit={handleSubmit}
-        className="mb-4 grid grid-cols-12 gap-1 rounded bg-white px-8 pb-8 pt-6 shadow-md sm:min-w-[450px] sm:gap-4"
+        className="mb-4 grid grid-cols-12 gap-0.5 rounded bg-white px-8 pb-8 pt-6 shadow-md sm:min-w-[450px] sm:gap-4"
       >
         <div className="col-span-12">
           <p className="mt-2 text-neutral-600">
             Find your <span className="text-orange-400"> Car {part}</span>
           </p>
         </div>
-        <div className="col-span-12 mb-4 sm:col-span-12">
+        <div className="col-span-12 sm:col-span-12">
           <select
             name="part"
             id="id_part"
@@ -294,7 +294,7 @@ const FormComponent = ({ part = 'Part' }) => {
             ))}
           </select>
         </div>
-        <div className="col-span-12 mb-4 sm:col-span-12">
+        <div className="col-span-12 sm:col-span-12">
           <select
             name="make"
             id="id_make"
@@ -343,7 +343,7 @@ const FormComponent = ({ part = 'Part' }) => {
             ))}
           </select>
         </div>
-        <div className="col-span-12 mb-4 sm:col-span-12">
+        <div className="col-span-12 sm:col-span-12">
           {options.model.length === 0 ? (
             <input
               disabled={formSelections.make === ''}
@@ -407,7 +407,7 @@ const FormComponent = ({ part = 'Part' }) => {
             </select>
           )}
         </div>
-        <div className="col-span-12 mb-4 sm:col-span-12">
+        <div className="col-span-12 sm:col-span-12">
           {options.year.length === 0 ? (
             <input
               disabled={formSelections.model === ''}
@@ -464,7 +464,7 @@ const FormComponent = ({ part = 'Part' }) => {
             </select>
           )}
         </div>
-        {/* <div className="col-span-12 mb-4 sm:col-span-12">
+        <div className="col-span-12 sm:col-span-12">
           {options.option.length === 0 ? (
             <input
               defaultValue={formSelections.size}
@@ -502,8 +502,8 @@ const FormComponent = ({ part = 'Part' }) => {
               ))}
             </select>
           )}
-        </div> */}
-        {/* <div className="col-span-12 mb-4 sm:col-span-12">
+        </div>
+        <div className="col-span-12 sm:col-span-12">
           <input
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
             id="email"
@@ -514,8 +514,8 @@ const FormComponent = ({ part = 'Part' }) => {
             value={formDataLoc.email}
             onChange={handleChange}
           />
-        </div> */}
-        <div className="col-span-12 mb-4 sm:col-span-12">
+        </div>
+        <div className="col-span-12 sm:col-span-12">
           <input
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
             id="number"
@@ -537,7 +537,7 @@ const FormComponent = ({ part = 'Part' }) => {
             <p className="pl-2 text-xs text-red-600">{errors.number}</p>
           )}
         </div>
-         <div className="col-span-12 mb-4 sm:col-span-12">
+         <div className="col-span-12 sm:col-span-12">
           <input
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
             id="name"

@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 import { RootLayoutContext } from '@/components/RootLayout'
+import FormComponent from '../Form'
 
 export function capitalizeAfterSpace(input) {
   return input.replace(
@@ -151,7 +152,8 @@ const EngineForm = ({ part = 'Part' }) => {
 
   return (
     <div id="top" className="mx-auto w-full max-w-xl">
-      <form
+      <FormComponent part="Engine" />
+      {/* <form
         id="quote-form"
         onSubmit={handleSubmit}
         className="mb-4 grid grid-cols-12 gap-1 rounded bg-white px-8 pb-8 pt-6 shadow-[0_8px_30px_rgb(0,0,0,0.12)] sm:min-w-[450px] sm:gap-4"
@@ -401,7 +403,7 @@ const EngineForm = ({ part = 'Part' }) => {
             <p className="pl-2 text-xs text-red-600">{errors.number}</p>
           )}
         </div>
-        {/* <div className="col-span-12 mb-4 sm:col-span-12">
+        <div className="col-span-12 mb-4 sm:col-span-12">
           <input
             className="focus:shadow-outline appearance-none w-full rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:shadow-orange-400 focus:outline-none"
             id="name"
@@ -412,7 +414,7 @@ const EngineForm = ({ part = 'Part' }) => {
             value={formDataLoc.name}
             onChange={handleChange}
           />
-        </div> */}
+        </div>
         <div className="col-span-12 flex items-center justify-between">
           <button
             // onClick={() => {
@@ -471,7 +473,7 @@ const EngineForm = ({ part = 'Part' }) => {
             )}
           </button>
         </div>
-      </form>
+      </form> */}
     </div>
   )
 }
