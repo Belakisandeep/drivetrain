@@ -78,7 +78,7 @@ export default function Layout({ children }) {
           gtag('config', 'G-4S12NLEH3G');`}
         </Script> */}
 
-        <Script id="BDB_BASE_FILE" strategy="beforeInteractive">
+        {/* <Script id="BDB_BASE_FILE" strategy="beforeInteractive">
           {`
 var _paq = (window._paq = window._paq || []);
 _paq.push(['trackPageView']);
@@ -128,7 +128,7 @@ _paq.push(['trackAllContentImpressions']);
   script.async = true;
   script.src = 'https://cdn.bangdb.com/tm/KpG4GoZiM6Py/71f7f20efc394cc9b5410ed9d6fd8ae5/mastercontainer.js';
   s.parentNode.insertBefore(script, s);`}
-        </Script>
+        </Script> */}
 
         {/* <Script id="bing" strategy="beforeInteractive">
           {`(function(w,d,t,r,u)
