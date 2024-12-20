@@ -322,7 +322,7 @@ export default function Search({ params }) {
             price={'Get a Quote'}
             warranty={'60 months'}
           />
-          {/* <FormComponent /> */}
+          <FormComponent />
         </FadeIn>
       </Container>
       <Container className="mt-16">
