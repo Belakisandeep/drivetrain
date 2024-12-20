@@ -153,7 +153,7 @@ const EngineForm = ({ part = 'Part' }) => {
   return (
     <div id="top" className="mx-auto w-full max-w-xl">
       <FormComponent part="Engine" />
-      {/* <form
+      <form
         id="quote-form"
         onSubmit={handleSubmit}
         className="mb-4 grid grid-cols-12 gap-1 rounded bg-white px-8 pb-8 pt-6 shadow-[0_8px_30px_rgb(0,0,0,0.12)] sm:min-w-[450px] sm:gap-4"
@@ -417,32 +417,32 @@ const EngineForm = ({ part = 'Part' }) => {
         </div>
         <div className="col-span-12 flex items-center justify-between">
           <button
-            // onClick={() => {
-            //   const part = formSelections.part
-            //     .replace(/ /g, '_')
-            //     .replace(/-/g, '_')
-            //   const make = formSelections.make
-            //     .replace(/ /g, '_')
-            //     .replace(/-/g, '_')
-            //   const model = formSelections.model
-            //     .replace(/ /g, '_')
-            //     .replace(/-/g, '_')
-            //   const year = formSelections.year
-            //     .replace(/ /g, '_')
-            //     .replace(/-/g, '_')
-            //   const size = formSelections.size
-            //     .replace(/ /g, '_')
-            //     .replace(/-/g, '_')
-            //   router.push(`/search/${part}/${make}/${model}/${year}/${size}`)
-            // }}
-            // href={{ pathname: '/search', query: formSelections }}
-            // disabled={
-            //   formSelections.make === '' ||
-            //   formSelections.model === '' ||
-            //   formSelections.part === '' ||
-            //   formSelections.size === '' ||
-            //   formSelections.year === ''
-            // }
+            onClick={() => {
+              const part = formSelections.part
+                .replace(/ /g, '_')
+                .replace(/-/g, '_')
+              const make = formSelections.make
+                .replace(/ /g, '_')
+                .replace(/-/g, '_')
+              const model = formSelections.model
+                .replace(/ /g, '_')
+                .replace(/-/g, '_')
+              const year = formSelections.year
+                .replace(/ /g, '_')
+                .replace(/-/g, '_')
+              const size = formSelections.size
+                .replace(/ /g, '_')
+                .replace(/-/g, '_')
+              router.push(`/search/${part}/${make}/${model}/${year}/${size}`)
+            }}
+            href={{ pathname: '/search', query: formSelections }}
+            disabled={
+              formSelections.make === '' ||
+              formSelections.model === '' ||
+              formSelections.part === '' ||
+              formSelections.size === '' ||
+              formSelections.year === ''
+            }
 
             className="focus:shadow-outline flex max-h-20 w-full appearance-none items-center justify-around rounded bg-orange-400 px-4 py-2 text-center font-bold text-white hover:bg-orange-700 focus:outline-none"
             type="submit"
@@ -473,7 +473,7 @@ const EngineForm = ({ part = 'Part' }) => {
             )}
           </button>
         </div>
-      </form> */}
+      </form>
     </div>
   )
 }
